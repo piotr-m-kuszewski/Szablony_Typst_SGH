@@ -1,4 +1,3 @@
-#import "@preview/theorion:0.4.1": *
 
 #let sgh_godlo = ```xml
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
