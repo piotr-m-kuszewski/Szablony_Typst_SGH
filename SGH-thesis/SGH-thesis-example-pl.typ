@@ -1,6 +1,10 @@
 // Import szablonu pracy dyplomowej zgodnej z wymaganiami SGH
 #import "SGH-thesis.typ": *
 
+#import "@preview/theorion:0.6.0": *
+#import cosmos.simple: *
+#show: show-theorion
+
 // Zdefiniowanie dodatkowego elementu dla hipotez
 #let (hipoteza-counter, hipoteza-box, hipoteza, show-hipoteza) = make-frame(
   "hipoteza",
@@ -10,11 +14,11 @@
 #set par(justify: true)
 
 // Wstawka z opisem przykładowej pracy dyplomowej
-#note-box(title: "Ważna uwaga!")[
+#note-block(title: "Ważna uwaga!")[
   Ten dokument jest przykładem pracy dyplomowej sformatowanej za pomocą szablonu Typst (https://typst.app) zgodnego z wymaganiami redakcyjnymi Szkoły Głównej Handlowej. W treści wykorzystane są wszystkie dodatkowe elementy formatowania wprowadzane przez ten szablon. Treść tego dokumentu nie jest pracą dyplomową złożoną przez Ijona Tichego. Zainteresowanych prawdziwymi dokonaniami tego znanego badacza zachęcam do lektury _Dzienników gwiazdowych_.
 ]
 
-#emph-box[
+#emph-block[
   Wykorzystane elementy szablonu pracy dyplomowej:
   - `sgh` do formatowania strony tytułowej pracy oraz włączenia ogólnego formatowania dokumentu,
   - `sgh_stripped_tables` do automatycznego formatowania tabel z naprzemiennie podświetlonymi wierszami tabeli,

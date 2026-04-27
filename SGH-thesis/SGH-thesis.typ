@@ -470,12 +470,6 @@
     show regex(",\\s"): math.class("punctuation", ",")
     it
   }
-
-  set-inherited-levels(0)
-  set-zero-fill(true)
-  set-leading-zero(true)
-  set-theorion-numbering("1")
-  show: show-theorion
   
   set ref(supplement: none)
   show ref: it => {
