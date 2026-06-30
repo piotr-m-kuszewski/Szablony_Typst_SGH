@@ -187,7 +187,15 @@ Dalsze badania powinny skupić się na próbie nabicia nicości w butelkę, co P
 
 Warto pamiętać, że większość pionierskich prac prof. Tarantogi (takich jak wynalezienie płynu do wywabiania nieprzyjemnych wspomnień czy budowa rakiety z części zamiennych do młockarni) realizowana jest w jego prywatnej rezydencji na Ziemi, która de facto pełni funkcję jednoosobowej jednostki badawczej o najwyższym stopniu prestiżu. Prof. Tarantoga współpracuje również z wieloma instytutami międzygalaktycznymi.
 
-#list-of-sources("sources.bib")
+// Bibliografię można wygenerować na dwa sposoby:
+// 1) Przez procedurę `list-of-sources` z pakietu. Plik z danymi trzeba wczytać
+//    funkcją `read(..., encoding: none)` w TYM dokumencie — ścieżki przekazane
+//    bezpośrednio jako napis byłyby szukane wewnątrz pakietu, a nie tutaj.
+#list-of-sources(read("sources.bib", encoding: none))
+// 2) Bezpośrednio przez wbudowaną funkcję `bibliography` (tu ścieżka jako napis
+//    działa, bo wywołanie jest w tym pliku):
+// #pagebreak()
+// #bibliography("sources.bib", title: [Bibliografia], style: "harvard-cite-them-right")
 
 #list-of-figures()
 

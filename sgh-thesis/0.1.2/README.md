@@ -41,10 +41,34 @@ template are available in the project repository:
 
 Body of the thesis...
 
-#list-of-sources("sources.bib")
+#list-of-sources(read("sources.bib", encoding: none))
 #list-of-figures()
 #list-of-tables()
 ```
+
+## Generating the bibliography
+
+There are two ways to produce the bibliography:
+
+1. **`list-of-sources`** (template procedure — adds a page break and the Harvard
+   style by default). Because the call to `bibliography` lives *inside* the package,
+   a plain path string would be resolved relative to the package, not your document.
+   Read the file with `read(..., encoding: none)` in your own document and pass the
+   resulting bytes:
+
+   ```typst
+   #list-of-sources(read("sources.bib", encoding: none))
+   // optionally choose a style:
+   #list-of-sources(read("sources.bib", encoding: none), styl: "ieee")
+   ```
+
+2. **Built-in `bibliography`** — called directly in your document, so a path string
+   works as usual and you get full control over title and style:
+
+   ```typst
+   #pagebreak()
+   #bibliography("sources.bib", title: [Bibliografia], style: "harvard-cite-them-right")
+   ```
 
 ## Available procedures
 
@@ -54,7 +78,8 @@ Body of the thesis...
 - `table-of-contents()` — table of contents.
 - `list-of-figures()` — list of figures.
 - `list-of-tables()` — list of tables.
-- `list-of-sources(plik, styl: "harvard-cite-them-right")` — bibliography.
+- `list-of-sources(plik, styl: "harvard-cite-them-right")` — bibliography; `plik`
+  must be the file contents read with `read(..., encoding: none)` (bytes), not a path.
 - `sgh-figure(caption:, source:, placement:, body)` — a figure with a caption and
   source; included in the list of figures.
 - `sgh-table(caption:, source:, placement:, body)` — a table with a caption and
