@@ -22,7 +22,7 @@ The theme builds on Touying, so import both packages:
 
 ```typst
 #import "@preview/touying:0.7.4": *
-#import "@preview/sgh-presentation:0.1.0": *
+#import "@preview/sgh-presentation:0.1.2": *
 
 #set text(lang: "pl") // the SGH logo follows the language: "pl" or "en"
 

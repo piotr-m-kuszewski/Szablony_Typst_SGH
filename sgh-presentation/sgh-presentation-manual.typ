@@ -27,8 +27,8 @@ Piotr Kuszewski, marzec 2026
 Prezentacja jest normalnym dokumentem Typst. Włączenie pakietu `touying`, a następnie załadowanie szablonu prezentacji SGH sprawi, że kolejne strony wyjściowego pliku pdf będą sformatowane jako slajdy. Minimalna prezentacja może mieć strukturę zgodną z kodem poniżej. Niektóre fragmenty kodu zostały wstawione jako komentarz. Można usunąć znaki `//` i włączyć dodatkowe opcje.
 
 ```typst
-#import "@preview/touying:0.7.0": *
-#import "@preview/sgh-presentation:0.1.0": *
+#import "@preview/touying:0.7.4": *
+#import "@preview/sgh-presentation:0.1.2": *
 
 #set text(lang: "pl") // Logo SGH zmienia się po zmianie języka: "pl", "en"
 
