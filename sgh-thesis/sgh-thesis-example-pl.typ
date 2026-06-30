@@ -1,5 +1,5 @@
 // Import szablonu pracy dyplomowej zgodnej z wymaganiami SGH
-#import "@preview/sgh-thesis:0.1.0": *
+#import "@preview/sgh-thesis:0.1.2": *
 
 #import "@preview/theorion:0.6.0": *
 #import cosmos.simple: *

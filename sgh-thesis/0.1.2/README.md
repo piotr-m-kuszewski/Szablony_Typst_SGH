@@ -17,7 +17,7 @@ template are available in the project repository:
 ## Usage
 
 ```typst
-#import "@preview/sgh-thesis:0.1.0": *
+#import "@preview/sgh-thesis:0.1.2": *
 
 #show: sgh.with(
   author: "Ijon Tichy",

@@ -1,6 +1,6 @@
 [package]
 name = "sgh-presentation"
-version = "0.1.0"
+version = "0.1.2"
 entrypoint = "sgh-presentation.typ"
 authors = ["Piotr Kuszewski <pkusze@sgh.waw.pl>"]
 license = "MIT"
