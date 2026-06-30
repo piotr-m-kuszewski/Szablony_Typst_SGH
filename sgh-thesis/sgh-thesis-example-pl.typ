@@ -1,5 +1,5 @@
 // Import szablonu pracy dyplomowej zgodnej z wymaganiami SGH
-#import "SGH-thesis.typ": *
+#import "sgh-thesis.typ": *
 
 #import "@preview/theorion:0.6.0": *
 #import cosmos.simple: *
@@ -21,14 +21,14 @@
 #emph-block[
   Wykorzystane elementy szablonu pracy dyplomowej:
   - `sgh` do formatowania strony tytułowej pracy oraz włączenia ogólnego formatowania dokumentu,
-  - `sgh_stripped_tables` do automatycznego formatowania tabel z naprzemiennie podświetlonymi wierszami tabeli,
-  - `table_of_contents` do formatowania spisu treści,
-  - `sgh_table` do formatowania tabel wymuszającego podanie tytułu i źródła tabeli oraz formatującego oba te elementy,
-  - `sgh_figure` do formatowania rysunków wymuszającego podanie tytułu i źródła oraz formatującego oba te elementy,
-  - `list_of_tables` do przygotowania spisu tabel,
-  - `list_of_figures` do przygotowania spisu rysunków,
-  - `list_of_sources` do przygotowania bibliografii w stylu harwardzkim na podstawie wskazanego pliku danych bibliograficznych,
-  - `sgh_summary` do umieszczenia streszczenia pracy.
+  - `sgh-stripped-tables` do automatycznego formatowania tabel z naprzemiennie podświetlonymi wierszami tabeli,
+  - `table-of-contents` do formatowania spisu treści,
+  - `sgh-table` do formatowania tabel wymuszającego podanie tytułu i źródła tabeli oraz formatującego oba te elementy,
+  - `sgh-figure` do formatowania rysunków wymuszającego podanie tytułu i źródła oraz formatującego oba te elementy,
+  - `list-of-tables` do przygotowania spisu tabel,
+  - `list-of-figures` do przygotowania spisu rysunków,
+  - `list-of-sources` do przygotowania bibliografii w stylu harwardzkim na podstawie wskazanego pliku danych bibliograficznych,
+  - `sgh-summary` do umieszczenia streszczenia pracy.
 
   Na początku zdefiniowana jest, przy użyciu pakietu `theorion`, dodatkowa komenda pozwalająca dodawać do tekstu hipotezy formatowane tak jak inne elementy tekstu naukowego, takie jak twierdzenia, lematy, dowody, etc.
 ]
@@ -37,7 +37,7 @@
 #show: sgh.with(
   author: "Ijon Tichy",
   student_id: "112358",
-  title: "Taksonomia i morfologia bytów nieistniejących zamieszkujących mgławice ciemne",
+  title: [Taksonomia i morfologia bytów\ nieistniejących zamieszkujących\ mgławice ciemne],
   advisor: "Prof. Astrala Sternu Tarantogi",
   advisor_department: "Katedra Astrognozji i Porównawczego Badania Nicości",
   year: "2025",
@@ -46,9 +46,9 @@
   language: "pl"
 )
 
-#show: sgh_stripped_tables
+#show: sgh-stripped-tables
 
-#table_of_contents()
+#table-of-contents()
 
 = Wstęp do ontologii negatywnej
 
@@ -90,7 +90,7 @@ W równaniu @eq:współczynnik stała $Phi$ określa fluktuacje nastroju badacza
 
 W Tabeli @tab:niebyty przedstawiono klasyfikację najczęściej "nie-spotykanych" bytów.
 
-#sgh_table(
+#sgh-table(
   caption: [Klasyfikacja bytów nieistniejących w zależności od stopnia deprywacji rzeczywistości.],
   source: [Opracowanie własne przygotowane w trakcie podróży do mgławicy Ciemnej Zeta.],
   table(
@@ -125,7 +125,7 @@ Zgodnie z ustaleniami komisji międzygalaktycznej @komisja2124, byty te podlegaj
 
 Aby lepiej zrozumieć termodynamikę niebytu, niezbędne jest przeanalizowanie stanów skupienia, w jakich może występować brak materii. Wykres fazowy na Rysunku @rys:wykres, opracowany na podstawie ryzykownych eksperymentów w Mgławicy Koński Łeb, ilustruje te zależności.
 
-#sgh_figure(
+#sgh-figure(
   caption: [Diagram fazowy stanów nieistnienia.],
   source: [Opracowanie własne na podstawie danych z czarnych skrzynek rakiet, które nigdy nie wróciły.],
   rect(
@@ -173,7 +173,7 @@ Badania nad morfologią niebytu w mgławicach ciemnych prowadzą do wniosku, że
 
 Dalsze badania powinny skupić się na próbie nabicia nicości w butelkę, co Profesor Tarantoga planuje zrealizować podczas najbliższych ferii na planecie Kurdlowej. Na Rysunku @rys:pułapka znajduje się schemat ideowy urządzenia, nad którym prace trwają w laboratorium profesora Tarantogi. Jest to pierwsza w historii próba praktycznego zastosowania teorii niebytu w celu jego schwytania i butelkowania. Centralnym elementem jest komora kondensacji próżni absolutnej, zasilana przez generator pola paradoksalnego. Urządzenie posiada wlot zasysający brak oraz specjalny filtr sensu, który odrzuca wszelką przypadkową materię. Produkt końcowy trafia do pojemnika na skroploną nicość w kształcie Butelki Kleina.
 
-#sgh_figure(
+#sgh-figure(
   caption: [Schemat pułapki na Nicość prof. Tarantogi.],
   source: [Tarantoga, S. (niepublikowane notatki warsztatowe, poplamione kawą). Szkice do aparatury ostatecznej. Archiwum prywatne na strychu.],
   rect(
@@ -187,12 +187,12 @@ Dalsze badania powinny skupić się na próbie nabicia nicości w butelkę, co P
 
 Warto pamiętać, że większość pionierskich prac prof. Tarantogi (takich jak wynalezienie płynu do wywabiania nieprzyjemnych wspomnień czy budowa rakiety z części zamiennych do młockarni) realizowana jest w jego prywatnej rezydencji na Ziemi, która de facto pełni funkcję jednoosobowej jednostki badawczej o najwyższym stopniu prestiżu. Prof. Tarantoga współpracuje również z wieloma instytutami międzygalaktycznymi.
 
-#list_of_sources("sources.bib")
+#list-of-sources("sources.bib")
 
-#list_of_figures()
+#list-of-figures()
 
-#list_of_tables()
+#list-of-tables()
 
-#sgh_summary[
+#sgh-summary[
   Praca analizuje strukturę i klasyfikację istot zamieszkujących ciemne mgławice, które charakteryzują się całkowitym brakiem istnienia. Przy wykorzystaniu autorskich wzorów matematycznych oraz obserwacji własnych autora, udowodniono, że niebyt posiada złożoną morfologię, a jego badanie jest możliwe wyłącznie przy zachowaniu odpowiedniego stopnia niewiedzy badawczej.
 ]

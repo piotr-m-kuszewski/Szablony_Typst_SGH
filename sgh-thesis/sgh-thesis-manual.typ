@@ -33,9 +33,9 @@ Piotr Kuszewski, marzec 2026
 
 Szablon pracy dyplomowej SGH umożliwia proste sformatowanie pracy dyplomowej z wykorzystaniem Typst. Makra szablonu, rozszerzające funkcjonalność Typst, opisane są w dalszej części tego dokumentu.
 
-Minimalna praca dyplomowa powinna w pierwszej kolejności dołączać plik `SGH-thesis.typ`, który powinien być w tym samym katalogu co plik dokumentu.
+Minimalna praca dyplomowa powinna w pierwszej kolejności dołączać plik `sgh-thesis.typ`, który powinien być w tym samym katalogu co plik dokumentu.
 ```typst
-#import "SGH-thesis.typ": *
+#import "sgh-thesis.typ": *
 #show: sgh.with(
   author: "Imię i nazwisko autora",
   student_id: "112358",
@@ -47,19 +47,19 @@ Minimalna praca dyplomowa powinna w pierwszej kolejności dołączać plik `SGH-
   program: "Metody",
   lang: "pl"
 )
-#table_of_contents()
+#table-of-contents()
 = Treść
 
-#list_of_sources("źródła.bib")
+#list-of-sources("źródła.bib")
 
-#list_of_figures()
+#list-of-figures()
 
-#list_of_tables()
+#list-of-tables()
 
 #pagebreak()
 #heading("Załącznik A", numbering: none)
 
-#sgh_summary[
+#sgh-summary[
   Praca analizuje...
 ]
 ```
@@ -94,7 +94,7 @@ Tekst zawartości...
 = Wyniki
 ```
 
-Każdy nagłówek automatycznie otrzymuje numer na podstawie hierarchii zagnieżdzenia. Numery są zarządzane przez Typst, dlatego nie trzeba ich pisać ręcznie. Nagłówkami automatycznie wypełniany jest także spis treści, tworzony za pomocą makra `#table_of_contents()`.
+Każdy nagłówek automatycznie otrzymuje numer na podstawie hierarchii zagnieżdzenia. Numery są zarządzane przez Typst, dlatego nie trzeba ich pisać ręcznie. Nagłówkami automatycznie wypełniany jest także spis treści, tworzony za pomocą makra `#table-of-contents()`.
 
 Jeśli chcemy utworzyć nagłówek bez numeracji (np. dla załączników), możemy to zrobić za pomocą parametru `numbering`:
 
@@ -104,14 +104,14 @@ Jeśli chcemy utworzyć nagłówek bez numeracji (np. dla załączników), może
 
 = Rysunki i tabele
 
-Rysunki i tabele powinny być wstawiane do pracy przy wykorzystaniu makr `#sgh_figure(...)` i `#sgh_table(...)`. Dzięki temu spisy tabel i rysunków będą zawierały poprawne listy obu typów elementów. Czasami możemy chcieć wstawić tabelę jako plik graficzny wygenerowany w innym pakiecie oprogramowania. Makro `#sgh_table()` umożliwia taką operację, poprawnie umieszczając tak wstawioną zawartość, na liście tabel. Warto wiedzieć, że nie będzie się tak działo, jeśli wykorzystamy proste makro `#figure (...)` gdzie jako zawartość wstawimy rysunek.
+Rysunki i tabele powinny być wstawiane do pracy przy wykorzystaniu makr `#sgh-figure(...)` i `#sgh-table(...)`. Dzięki temu spisy tabel i rysunków będą zawierały poprawne listy obu typów elementów. Czasami możemy chcieć wstawić tabelę jako plik graficzny wygenerowany w innym pakiecie oprogramowania. Makro `#sgh-table()` umożliwia taką operację, poprawnie umieszczając tak wstawioną zawartość, na liście tabel. Warto wiedzieć, że nie będzie się tak działo, jeśli wykorzystamy proste makro `#figure (...)` gdzie jako zawartość wstawimy rysunek.
 
 == Etykiety i odwołania
 
 W Typst etykiety nadajemy elementom za pomocą składni `<nazwa>` bezpośrednio po elemencie, do którego chcemy się odwoływać. Następnie odwołania tworzymy za pomocą `@nazwa`. Przykład:
 
 ```typst
-#sgh_figure(
+#sgh-figure(
   image("wykres.png"),
   caption: [Wykres sprzedaży]
 )<fig:sprzedaz>
@@ -122,7 +122,7 @@ Jak widać na Rysunku @fig:sprzedaz, sprzedaż rośnie.
 To samo dotyczy tabel:
 
 ```typst
-#sgh_table(
+#sgh-table(
   table(...),
   caption: [Wyniki badania]
 )<tab:wyniki>
@@ -176,5 +176,5 @@ W języku polskim wyróżniamy trzy kreski: łącznik (-), półpauzę (–) i p
 
 = Opis procedur zawartych w szablonie
 
-#let docs = tidy.parse-module(read("SGH-thesis.typ"), name: none)
+#let docs = tidy.parse-module(read("sgh-thesis.typ"), name: none)
 #tidy.show-module(docs)

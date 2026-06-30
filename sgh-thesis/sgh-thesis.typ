@@ -1,5 +1,5 @@
 
-#let sgh_godlo = ```xml
+#let sgh-godlo = ```xml
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <svg
    version="1.1"
@@ -351,7 +351,7 @@
   show math.equation: set text(font: "New Computer Modern Math")
   
   align(center)[
-    #image(bytes(sgh_godlo), format: "svg", width: 35%)
+    #image(bytes(sgh-godlo), format: "svg", width: 35%)
     #v(0.5cm)
 
     #if studies == "mgr" [
@@ -485,13 +485,13 @@
 }
 
 /// Procedura generująca spis treści. -> none
-#let table_of_contents() = {
+#let table-of-contents() = {
   outline()
   pagebreak()
 }
 
-/// Procedura generująca spis rysunków, tj. obiektów wstawionych za pomocą procedury `#sgh_figure()` z tego szablonu. -> none
-#let list_of_figures() = {
+/// Procedura generująca spis rysunków, tj. obiektów wstawionych za pomocą procedury `#sgh-figure()` z tego szablonu. -> none
+#let list-of-figures() = {
     pagebreak()
     heading(loc-pl-en("Spis rysunków","List of figures"), depth: 1, numbering: none)
     outline(
@@ -500,8 +500,8 @@
         )
 }
 
-/// Procedura generująca spis tabel, tj. obiektów wstawionych za pomocą procedury `#sgh_table()` z tego szablonu. -> none
-#let list_of_tables() = {
+/// Procedura generująca spis tabel, tj. obiektów wstawionych za pomocą procedury `#sgh-table()` z tego szablonu. -> none
+#let list-of-tables() = {
     pagebreak()
     heading(loc-pl-en("Spis tabel","List of tables"), depth: 1, numbering: none)
     outline(
@@ -509,10 +509,9 @@
             title: none
         )
   }
-}
 
 /// Procedura generująca bibliografię. -> none
-#let list_of_sources(
+#let list-of-sources(
   /// Plik zawierający dane bibliograficzne pozycji cytowanych w tekście. Wykorzystywany jest wewnętrzny mechanizm przygotowania bibliografii dostarczany z Typst. Plik z danymi bibliograficznymi powinien być w formacie BibLaTeX lub Hayagriva. -> str
   plik,
   /// Styl przygotowania bibliografii. Powinien być wybrany z listy domyślnych stylów. Domyślna wartość tego parametru przygotowuje bibliografię w stylu harwardzkim i w formacie (Autor, Data). -> str
@@ -527,14 +526,14 @@
 
 /// Procedura dodająca rysunek. Tak wstawiony rysunek pojawi się w spisie rysunków. Utworzenie numerowanego rysunku ze wskazanym źródłem z pliku `rys1.pdf` zawierającego rysunek, który będzie automatycznie umieszczany na dole lub na górze strony wymaga polecenia:
 /// ```typst
-/// #sgh_figure(
+/// #sgh-figure(
 ///   caption: [Diagram.],
 ///   source: [Opracowanie własne.],
 ///   placement: auto,
 ///   image("rys1.pdf")
 /// )<rys:diagram>
 /// ```
-#let sgh_figure(
+#let sgh-figure(
   /// Tytuł rysunku. Tytuł umieszczany jest nad rysunkiem. Nie jest to zgodne z polskimi zwyczajami, ale poprawia czytelność dokumentu. -> str
   caption: "",
   /// Źródło rysunku. Umieszczanie mniejszym fontem poniżej rysunku. -> str
@@ -561,7 +560,7 @@
 
 /// Procedura dodająca tabelę. Tak wstawiona tabela pojawi się w spisie tabel. Utworzenie numerowanej tabeli ze wskazanym źródłem, która będzie umieszczan dokładnie tam gdzie jest w kodzie:
 /// ```typst
-/// #sgh_table(
+/// #sgh-table(
 ///   caption: [Diagram.],
 ///   source: [Opracowanie własne.],
 ///   table(
@@ -569,7 +568,7 @@
 ///   )
 /// )<rys:diagram>
 /// ```
-#let sgh_table(
+#let sgh-table(
   /// Tytuł tabeli. Tytuł umieszczany jest nad tabelą, a źródło poniżej tabeli. -> str
   caption: "",
   /// Źródło tabeli. Umieszczanie mniejszym fontem poniżej tabeli. -> str
@@ -596,11 +595,11 @@
 
 /// Generuje tytuł streszczenia. Streszczenie nie jest częścią spisu treści. Użycie:
 /// ```typst
-/// #sgh_summary[
+/// #sgh-summary[
 ///  Treść streszczenia
 /// ]
 /// ``` 
-#let sgh_summary(
+#let sgh-summary(
   body
 ) = {
   pagebreak()
@@ -611,9 +610,9 @@
 
 /// Włącza formatowanie tabel w naprzemiennie wyszarzone poziome pasy z wierszem nagłówka sformatowanym pogrubiony fontem. Użycie:
 /// ```typst
-/// #show: sgh_stripped_tables
+/// #show: sgh-stripped-tables
 /// ```
-#let sgh_stripped_tables(body) = {
+#let sgh-stripped-tables(body) = {
   show table.cell.where(y: 0): set text(weight: "bold")
   let frame(stroke) = (x, y) => (
     left: 0pt,

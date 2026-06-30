@@ -28,7 +28,7 @@ Prezentacja jest normalnym dokumentem Typst. Włączenie pakietu `touying`, a na
 
 ```typst
 #import "@preview/touying:0.7.0": *
-#import "SGH-presentation.typ": *
+#import "sgh-presentation.typ": *
 
 #set text(lang: "pl") // Logo SGH zmienia się po zmianie języka: "pl", "en"
 
@@ -72,6 +72,6 @@ Szablon prezentacji SGH wymaga dodatkowych fontów. Jeśli korzystamy z Typst be
 
 = Opis procedur zawartych w szablonie
 
-#let docs = tidy.parse-module(read("SGH-presentation.typ"), name: none)
+#let docs = tidy.parse-module(read("sgh-presentation.typ"), name: none)
 #tidy.show-module(docs)
 

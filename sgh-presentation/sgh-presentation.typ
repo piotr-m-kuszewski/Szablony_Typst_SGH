@@ -4,11 +4,11 @@
 
 #import "@preview/touying:0.7.0": *
 
-#let sgh_green = rgb("#007481")
-#let sgh_blue = rgb("#00b5e2")
-#let sgh_text = rgb("#23373b")
+#let sgh-green = rgb("#007481")
+#let sgh-blue = rgb("#00b5e2")
+#let sgh-text = rgb("#23373b")
 
-#let sgh_logotyp = ```xml
+#let sgh-logotyp = ```xml
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 
 <svg
@@ -41,7 +41,7 @@
 </svg>
 ```.text
 
-#let sgh_kwadrat_en = ```xml
+#let sgh-kwadrat-en = ```xml
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 
 <svg
@@ -172,7 +172,7 @@
 </svg>
 ```.text
 
-#let sgh_kwadrat_pl = ```xml
+#let sgh-kwadrat-pl = ```xml
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 
 <svg
@@ -384,7 +384,7 @@
     set std.align(top)
     show: components.cell.with(fill: self.colors.primary-lightest, inset: 1em)
     set std.align(horizon)
-    set text(fill: sgh_green, weight: 900, size: 1.5em)
+    set text(fill: sgh-green, weight: 900, size: 1.5em)
     components.left-and-right(
       {
         if title != auto {
@@ -402,7 +402,7 @@
     pad(
       .5em,
       components.left-and-right(
-        //image(bytes(sgh_logotyp), format: "svg", height: 1em),
+        //image(bytes(sgh-logotyp), format: "svg", height: 1em),
         text(fill: self.colors.neutral-darkest.lighten(40%), utils.call-or-display(self, self.store.footer)),
         text(fill: self.colors.neutral-darkest, utils.call-or-display(self, self.store.footer-right)),
       ),
@@ -462,11 +462,11 @@
     self,
     config,
     config-common(freeze-slide-counter: true),
-    config-page(fill: sgh_green),
+    config-page(fill: sgh-green),
   )
   let info = self.info + args.named()
   let body = {
-    loc-pl-en(image(bytes(sgh_kwadrat_pl), format: "svg", width: 3cm), image(bytes(sgh_kwadrat_en), format: "svg", width: 3cm))
+    loc-pl-en(image(bytes(sgh-kwadrat-pl), format: "svg", width: 3cm), image(bytes(sgh-kwadrat-en), format: "svg", width: 3cm))
     set text(fill: self.colors.neutral-lightest)
     set std.align(horizon)
     block(
@@ -570,7 +570,7 @@
   /// Dodatkowe informacje po prawej stronie nagłówka. -> content
   header-right: none,
   /// Stopka slajdu. Domyślnie ustawiona na logo SGH. -> content
-  footer: image(bytes(sgh_logotyp), format: "svg", height: 1em),
+  footer: image(bytes(sgh-logotyp), format: "svg", height: 1em),
   /// Prawa strona stopki slajdu. Domyślnie ustawiona na nr slajdu / liczba slajdów. -> content
   footer-right: context utils.slide-counter.display() + " / " + utils.last-slide-number,
   /// Widoczność paska postępu na dole slajdu. -> boolean
@@ -604,17 +604,17 @@
     it
   }
   // Style level 3 headings
-  show heading.where(level: 3): set text(fill: sgh_green)
+  show heading.where(level: 3): set text(fill: sgh-green)
   // Markery w listach nienumerowanych
   set list(
     marker: (
-      text(fill: sgh_green, sym.square.filled),
-      text(weight: "bold", fill: sgh_green, sym.quote.chevron.r.double),
-      text(weight: "bold", fill: sgh_green, sym.dash.en),
+      text(fill: sgh-green, sym.square.filled),
+      text(weight: "bold", fill: sgh-green, sym.quote.chevron.r.double),
+      text(weight: "bold", fill: sgh-green, sym.dash.en),
     )
   )
  // Formatowanie tabel, pogrubiony nagłówek i naprzemienne cieniowanie wierszy
-  show table.cell.where(y: 0): set text(weight: "bold", fill: sgh_green)
+  show table.cell.where(y: 0): set text(weight: "bold", fill: sgh-green)
   let frame(stroke) = (x, y) => (
     left: 0pt,
     right: 0pt,
@@ -622,8 +622,8 @@
     bottom: stroke + 1.5pt,
   )
   set table(
-    fill: (_, y) => if calc.odd(y) { sgh_green.lighten(90%) },
-    stroke: frame(sgh_text),
+    fill: (_, y) => if calc.odd(y) { sgh-green.lighten(90%) },
+    stroke: frame(sgh-text),
   )
 
   show: touying-slides.with(
@@ -641,12 +641,12 @@
       alert: utils.alert-with-primary-color,
     ),
     config-colors(
-      primary: sgh_green,                 // aktywna część paska postępu, sgh_green
+      primary: sgh-green,                 // aktywna część paska postępu, sgh-green
       primary-light: rgb("#dddddd"),    // tło paska postępu, gray
-      secondary: sgh_green,               // tło, green
+      secondary: sgh-green,               // tło, green
       neutral-lightest: rgb("#ffffff"), // tło slajdu, białe
-      neutral-dark: sgh_green,            // tło slajdu "końcowego", sgh_green
-      neutral-darkest: sgh_text,          // kolor głównego tesktu, ciemy szaro-zielony
+      neutral-dark: sgh-green,            // tło slajdu "końcowego", sgh-green
+      neutral-darkest: sgh-text,          // kolor głównego tesktu, ciemy szaro-zielony
     ),
     // zapamiętanie zmiennych do przyszłego wykorzystania
     config-store(

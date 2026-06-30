@@ -1,5 +1,5 @@
 #import "@preview/touying:0.7.0": *
-#import "SGH-presentation.typ": *
+#import "sgh-presentation.typ": *
 
 #set text(lang: "pl") // Logo SGH zmienia się po zmianie języka: "pl", "en"
 
