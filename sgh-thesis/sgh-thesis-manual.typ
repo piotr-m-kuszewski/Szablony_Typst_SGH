@@ -35,7 +35,7 @@ Szablon pracy dyplomowej SGH umożliwia proste sformatowanie pracy dyplomowej z 
 
 Minimalna praca dyplomowa powinna w pierwszej kolejności dołączać plik `sgh-thesis.typ`, który powinien być w tym samym katalogu co plik dokumentu.
 ```typst
-#import "sgh-thesis.typ": *
+#import "@preview/sgh-thesis:0.1.0": *
 #show: sgh.with(
   author: "Imię i nazwisko autora",
   student_id: "112358",
