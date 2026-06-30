@@ -2,7 +2,7 @@
 // The Touying Metropolis theme is inspired by https://github.com/matze/mtheme
 // The origin code was written by https://github.com/Enivex
 
-#import "@preview/touying:0.7.0": *
+#import "@preview/touying:0.7.4": *
 
 #let sgh-green = rgb("#007481")
 #let sgh-blue = rgb("#00b5e2")

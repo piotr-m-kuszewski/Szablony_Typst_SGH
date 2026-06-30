@@ -301,10 +301,10 @@
 /// ```typst
 /// #show: sgh.with(
 ///  author: "Ijon Tichy",
-///  student_id: "112358",
+///  student-id: "112358",
 ///  title: "Taksonomia i morfologia bytów nieistniejących zamieszkujących mgławice ciemne",
 ///  advisor: "Prof. Astrala Sternu Tarantogi", // Odmiana!!
-///  advisor_department: "Katedra Astrognozji i Porównawczego Badania Nicości",
+///  advisor-department: "Katedra Astrognozji i Porównawczego Badania Nicości",
 ///  year: "2025",
 ///  studies: "mgr",
 ///  program: "Kosmologia Paradoksalna",
@@ -317,11 +317,11 @@
   /// Imię i nazwisko autora pracy. -> str
   author: "",
   /// Nr albumu autora pracy -> str
-  student_id: "",
+  student-id: "",
   /// Tytuł i stopień naukowy oraz imię i nazwisko promotora w odmianie dopasowanej do frazy "pod kierunkiem naukowym...". Należy pamiętać, że w przypadku skrótów kropki nie dodajemy tylko w przypadku gdy skót kończy się na tą samą literę co skracany wyraz. To znaczy, że w przypadku "pod kierunkiem naukowym dr. Jana Kowalskiego" kropka w stosowanym skrócie jest wymagana. -> str
   advisor: "",
   /// Jednostka (Instytut, Katedra, ...) w której pracuje promotor pracy. -> str
-  advisor_department: "",
+  advisor-department: "",
   /// Studium w ramach którego została przygotowana praca. -> "lic" | "mgr"
   studies: "mgr",
   /// Kierunek studiów. -> str
@@ -384,8 +384,8 @@
       #text(loc-pl-en("Brak autora!","Author name missing!"), fill: red)
     ]
     #loc-pl-en("Nr albumu ","Student register No. ") 
-    #if student_id != "" [
-      #text([#student_id \ ])
+    #if student-id != "" [
+      #text([#student-id \ ])
     ] else [
       #text(loc-pl-en([Brak numeru albumu!\ ],[Student register No. missing!\ ]), fill: red)
     ]
@@ -410,8 +410,8 @@
     ] else [
       #text(loc-pl-en([Wskaż promotora!\ ],[Name of advisor missing!\ ]), fill: red)
     ]
-    #if advisor_department != "" [
-      #text([#advisor_department\ ])
+    #if advisor-department != "" [
+      #text([#advisor-department\ ])
     ] else [
       #text(loc-pl-en([Wskaż jednostkę naukową promotora!\ ],[Advisor's departement name missing!\ ]), fill: red)
     ]
