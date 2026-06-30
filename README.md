@@ -4,13 +4,13 @@ W tym repozytorium znajdują się szablony dokumentów w formacie Typst przydatn
 
 # Szablon pracy dyplomowej
 
-Szablon pracy dyplomowej znajduje się w katalogu `SGH-thesis` w tym repozytorium. Szablon pracy dyplomowej jest dwujęzyczny, a w katalogu znajduje się dodatkowa instrukcja wyjaśniająca szczegółowo, jak można korzystać z tego szablonu. Standardowym fontem wykorzystywanym do składu prac dyplomowych jest New Computer Modern, który jest domyślnie zawarty w każdej instalacji Typst. Aby korzystać z tego szablonu, wystarczy zainstalować Typst na swoim komputerze i można z niego natychmiast korzystać bez żadnych dodatkowych czynności konfiguracyjnych.
+Szablon pracy dyplomowej znajduje się w katalogu `sgh-thesis` w tym repozytorium. Szablon pracy dyplomowej jest dwujęzyczny, a w katalogu znajduje się dodatkowa instrukcja wyjaśniająca szczegółowo, jak można korzystać z tego szablonu. Standardowym fontem wykorzystywanym do składu prac dyplomowych jest New Computer Modern, który jest domyślnie zawarty w każdej instalacji Typst. Aby korzystać z tego szablonu, wystarczy zainstalować Typst na swoim komputerze i można z niego natychmiast korzystać bez żadnych dodatkowych czynności konfiguracyjnych.
 
 Szablon spełnia wszystkie wymagania dla prac dyplomowych w SGH, więc prace złożone z wykorzystaniem tego szablonu powinny spełniać wymogi redakcyjne dla prac dyplomowych bez dodatkowych problemów.
 
 # Szablon prezentacji
 
-Szablon prezentacji znajduje się w katalogu `SGH-presentation` w tym repozytorium. Podobnie jak szablon pracy dyplomowej szablon prezentacji jest dwujęzyczny. Standardowym fontem w prezentacjach SGH jest Open Sans. Ten font jest mało czytelny i nie zawiera wielu opcji ustalenia wagi fontu w dokumencie. Z tego względu prezentacje w formacie Typst używają fontu Lato. Font Lato jest bezpłatny i dostępny pod adresem <https://www.latofonts.com>. Font Lato został opracowany w Polsce przez Łukasza Dziedzica. Instalacja fontu w systemie jest niezbędna, jeśli chcemy niego korzystać w Typst zainstalowanym na komputerze. W przypadku edytowania dokumentów na platformie Typst.app nie ma takiej potrzeby, bo font jest już tam zainstalowany.
+Szablon prezentacji znajduje się w katalogu `sgh-presentation` w tym repozytorium. Podobnie jak szablon pracy dyplomowej szablon prezentacji jest dwujęzyczny. Standardowym fontem w prezentacjach SGH jest Open Sans. Ten font jest mało czytelny i nie zawiera wielu opcji ustalenia wagi fontu w dokumencie. Z tego względu prezentacje w formacie Typst używają fontu Lato. Font Lato jest bezpłatny i dostępny pod adresem <https://www.latofonts.com>. Font Lato został opracowany w Polsce przez Łukasza Dziedzica. Instalacja fontu w systemie jest niezbędna, jeśli chcemy niego korzystać w Typst zainstalowanym na komputerze. W przypadku edytowania dokumentów na platformie Typst.app nie ma takiej potrzeby, bo font jest już tam zainstalowany.
 
 # Typst
 
