@@ -21,7 +21,7 @@
 
 #title-slide()
 
-== Test
+== Prosty slajd
 
 Tekst na slajdzie.
 
@@ -35,7 +35,7 @@ Tekst na slajdzie.
 
 = Sekcja
 
-== A teraz z innej beczki
+== A teraz coś zupełnie innego
 
 + Pierwszy
 + Drugi
@@ -44,13 +44,15 @@ $
   EE(XX) = E(E(XX)) VV"ar"
 $<eq-1>
 
+To jest równanie @eq-1.
+
 == Tabela
 
-A to jest równanie @eq-1 i Tabela @tab:1
+A to jest Tabela @tab:1.
 
 
 #figure(
-    caption: "Ala ma kota",
+    caption: "Prosta tabela.",
     table(
     columns: (3cm, 5cm, 3cm),
     align: (left, left, left),
