@@ -50,7 +50,7 @@ Minimalna praca dyplomowa powinna w pierwszej kolejności dołączać plik `sgh-
 #table-of-contents()
 = Treść
 
-#list-of-sources("źródła.bib")
+#list-of-sources(read("źródła.bib", encoding: none))
 
 #list-of-figures()
 
@@ -155,6 +155,25 @@ Standardowa konfiguracja szablonu pracy dyplomowej wykorzystuje harwardzki styl 
 - *Samo nazwisko autora*: `#cite(key: <Smith2020>, form: "author")` → Smith
 - *Autor i rok*: `#cite(key: <Smith2020>, form: "prose")` → Smith (2020)
 - *Tylko rok*: `#cite(key: <Smith2020>, form: "year")` → 2020
+
+== Generowanie spisu bibliografii
+
+Spis bibliografii można utworzyć na dwa sposoby.
+
+*Sposób 1 — procedura `list-of-sources`.* Procedura ta dodaje przerwę strony i domyślnie używa stylu harwardzkiego. Wywołanie wbudowanej funkcji `bibliography` znajduje się jednak _wewnątrz_ pakietu, dlatego ścieżka podana jako zwykły napis byłaby szukana w katalogu pakietu, a nie w katalogu Twojego dokumentu. Plik z danymi należy więc wczytać funkcją `read(..., encoding: none)` we własnym dokumencie i przekazać uzyskane bajty:
+
+```typst
+#list-of-sources(read("źródła.bib", encoding: none))
+// można też wskazać styl:
+#list-of-sources(read("źródła.bib", encoding: none), styl: "ieee")
+```
+
+*Sposób 2 — wbudowana funkcja `bibliography`.* Wywołana bezpośrednio w Twoim dokumencie przyjmuje ścieżkę jako napis i daje pełną kontrolę nad tytułem oraz stylem:
+
+```typst
+#pagebreak()
+#bibliography("źródła.bib", title: [Bibliografia], style: "harvard-cite-them-right")
+```
 
 Dla bardziej złożonych wymagań bibliograficznych dostępne są pakiety `alexandria` i `pergamon`, które umożliwiają zaawansowane formatowanie i organizację bibliografii. Pakiet `alexandria` pozwala na bardziej elastyczne zarządzanie odwołaniami i tworzenie skomplikowanych struktur cytowania. Pakiet `pergamon` umożliwia tworzenie bardziej zaawansowanych bibliografii z możliwością rozdzielania źródeł na kategorie, na przykład osobne listy dla źródeł online, książek, artykułów naukowych itp. Pakiety te otwierają możliwość tworzenia zaawansowanych struktur bibliograficznych dostosowanych do specyficznych wymagań pracy dyplomowej.
 
