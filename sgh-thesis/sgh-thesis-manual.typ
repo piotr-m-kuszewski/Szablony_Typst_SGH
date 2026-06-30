@@ -38,10 +38,10 @@ Minimalna praca dyplomowa powinna w pierwszej kolejności dołączać plik `sgh-
 #import "@preview/sgh-thesis:0.1.0": *
 #show: sgh.with(
   author: "Imię i nazwisko autora",
-  student_id: "112358",
+  student-id: "112358",
   title: "Tytuł pracy",
   advisor: "Prof. Iksińskiego", // pamiętamy o odmianie!
-  advisor_department: "Katedra X",
+  advisor-department: "Katedra X",
   year: "2025",
   studies: "mgr",
   program: "Metody",

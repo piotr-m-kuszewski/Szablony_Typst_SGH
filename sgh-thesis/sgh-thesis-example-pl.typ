@@ -36,10 +36,10 @@
 
 #show: sgh.with(
   author: "Ijon Tichy",
-  student_id: "112358",
+  student-id: "112358",
   title: [Taksonomia i morfologia bytów\ nieistniejących zamieszkujących\ mgławice ciemne],
   advisor: "Prof. Astrala Sternu Tarantogi",
-  advisor_department: "Katedra Astrognozji i Porównawczego Badania Nicości",
+  advisor-department: "Katedra Astrognozji i Porównawczego Badania Nicości",
   year: "2025",
   studies: "mgr",
   program: "Kosmologia Paradoksalna",
