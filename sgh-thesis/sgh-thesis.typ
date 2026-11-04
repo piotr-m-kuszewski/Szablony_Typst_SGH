@@ -297,6 +297,19 @@
   if text.lang == "en" { en } else { pl }
 }
 
+// Czy komentarze promotora są widoczne: --input advisor-comments=true|false ma pierwszeństwo przed parametrem.
+#let _comments-on(param, inputs) = {
+  let v = inputs.at("advisor-comments", default: none)
+  if v == none { param }
+  else if v == "true" { true }
+  else if v == "false" { false }
+  else { panic("advisor-comments: oczekiwano true albo false, otrzymano " + repr(v)) }
+}
+
+// Tryb ustawiony w sgh(). Poza sgh() i w wersji ostatecznej sgh-comment nie wstawia znacznika,
+// bo nawet niewidoczny metadata w akapicie zmienia justowanie wiersza o ułamki punktu.
+#let _comments-visible = state("sgh-advisor-comments", false)
+
 /// Główna procedura szablonu. Generuje stronę tytułową i konfiguruje wszystkie parametry tekstu. `sgh()` wymaga użycia komendy `#show` na początku pliku. Przykładowe wywołanie procedury `sgh()`:
 /// ```typst
 /// #show: sgh.with(
@@ -332,14 +345,20 @@
   year: "2026",
   /// Język, w jakim jest pisana praca. W tym momencie obsługiwane są wyłącznie języki polski i angielski. Domyślnym językiem jest polski, ale ustawienie jakiegokolwiek innego języka przestawia szablon na język angielski. -> "pl" | "en"
   language: "pl",
+  /// Widoczność komentarzy promotora wstawionych procedurą `sgh-comment`. Gdy `true`, strona jest poszerzona do 280 mm, a komentarze pojawiają się na prawym marginesie (wersja robocza). Gdy `false`, komentarze nie zostawiają w dokumencie żadnego śladu (wersja ostateczna). Wartość można nadpisać bez edycji pliku: `typst compile --input advisor-comments=true praca.typ`. -> bool
+  advisor-comments: false,
   body
 ) = {
+  let on = _comments-on(advisor-comments, sys.inputs)
+  _comments-visible.update(on)
   set document(title: title, author: author)
   set text(lang: language)
   set page(
     paper: "a4",
     margin: (top: 25mm, bottom: 25mm, left: 25mm, right: 25mm),
   )
+  // Wersja robocza: blok tekstu bez zmian, strona poszerzona w prawo o pas na komentarze
+  set page(width: 280mm, margin: (top: 25mm, bottom: 25mm, left: 25mm, right: 95mm)) if on
   show figure: set place(clearance: 1em)
   show figure: set block(below: 0.75em)
 
@@ -627,4 +646,31 @@
     stroke: frame(black),
   )
   body
+}
+
+/// Komentarz promotora. Kolejne bloki treści to wypowiedzi na przemian: promotor, autor, promotor… Komentarz jest widoczny na prawym marginesie tylko w wersji roboczej (parametr `advisor-comments` procedury `sgh()`); w wersji ostatecznej nie zostawia śladu. Wywołanie warto „przykleić” do poprzedniego słowa, żeby nie zostawiało podwójnej spacji:
+/// ```typst
+/// Wartość wynosi 1,42 kg/m³.#sgh-comment[Skąd ta wartość?][Dodałem źródło.] Dalszy tekst…
+///
+/// #sgh-comment(resolved: true)[Proszę dodać wniosek.][Dodane.]Akapit…
+/// ```
+/// -> content
+#let sgh-comment(
+  /// Komentarz uwzględniony: blok skraca się do jednego przekreślonego wiersza. -> bool
+  resolved: false,
+  /// Wyrównanie bloku: `auto` (rozpoznanie z miejsca wywołania), `"start"` (do góry akapitu), `"inside"` (do wiersza z markerem), `"end"` (do dołu akapitu). W tabelach ignorowane. -> auto | str
+  at: auto,
+  /// Wypowiedzi na przemian: promotor, autor, … (co najmniej jedna). -> content
+  ..bodies
+) = {
+  if bodies.named().len() > 0 {
+    panic("sgh-comment: nieznane argumenty " + bodies.named().keys().join(", "))
+  }
+  if bodies.pos().len() == 0 {
+    panic("sgh-comment: brak treści komentarza")
+  }
+  if at not in (auto, "start", "inside", "end") {
+    panic("sgh-comment: at musi być auto, \"start\", \"inside\" albo \"end\", otrzymano " + repr(at))
+  }
+  context if _comments-visible.get() [#metadata((resolved: resolved, at: at, bodies: bodies.pos()))<sgh-comment>]
 }
