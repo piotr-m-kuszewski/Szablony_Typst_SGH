@@ -237,6 +237,8 @@ Byt nieistniejący #sgh-comment(resolved: true)[Literówka.][Poprawione.]nie pos
 
 Komentarze nie działają w nagłówkach, podpisach rysunków i tabel ani w przypisach. Uwagę do nagłówka lub podpisu wpisuje się na początku pierwszego akapitu pod nim. Komentarz w nagłówku tabeli (`table.header`) powtarzanym na kolejnych stronach pojawia się przy ostatnim powtórzeniu nagłówka, dlatego uwagę do nagłówka tabeli lepiej wpisać w pierwszym wierszu danych.
 
+Wersja robocza przebudowuje każdy akapit, żeby rozpoznać położenie komentarzy. Jeśli praca zawiera własne reguły `show par`, działają one w wersji roboczej dwukrotnie i mogą zmienić jej skład; wersja ostateczna pozostaje bez zmian.
+
 = Opis procedur zawartych w szablonie
 
 #let docs = tidy.parse-module(read("sgh-thesis.typ"), name: none)

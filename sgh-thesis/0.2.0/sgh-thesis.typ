@@ -310,10 +310,19 @@
 // bo nawet niewidoczny metadata w akapicie zmienia justowanie wiersza o ułamki punktu.
 #let _comments-visible = state("sgh-advisor-comments", false)
 
+// Znaczniki (par-first, par-last) akapitu obejmującego zdarzenie i, albo none, gdy zdarzenie
+// leży poza akapitem (np. w elemencie listy między akapitami).
+#let _enclosing(events, i) = {
+  let bounds = ("par-first", "par-last")
+  let prev = events.slice(0, i).rev().find(x => x.kind in bounds)
+  let next = events.slice(i + 1).find(x => x.kind in bounds)
+  if prev != none and prev.kind == "par-first" and next != none and next.kind == "par-last" { (prev, next) }
+}
+
 // Rodzaj każdego komentarza ("c") ze zdarzeń (kind:, pos:) w kolejności dokumentu:
-// "table" między table-begin i table-end; "start"/"end", gdy komentarz leży dokładnie
-// tam, gdzie znacznik par-first poprzedzający go lub par-last następujący po nim;
-// w pozostałych przypadkach "inside".
+// "table" między table-begin i table-end; "alone" tuż za znacznikiem alone (komentarz
+// samodzielny między akapitami); "start"/"end", gdy komentarz leży dokładnie tam, gdzie
+// znacznik par-first lub par-last obejmującego go akapitu; w pozostałych przypadkach "inside".
 #let _classify(events) = {
   let out = ()
   let tables = 0
@@ -321,12 +330,13 @@
     if e.kind == "table-begin" { tables += 1 }
     else if e.kind == "table-end" { tables -= 1 }
     else if e.kind == "c" {
-      let first = events.slice(0, i).rev().find(x => x.kind == "par-first")
-      let last = events.slice(i + 1).find(x => x.kind == "par-last")
+      let prev = events.slice(0, i).rev().find(x => x.kind != "c")
+      let enc = _enclosing(events, i)
       out.push(
         if tables > 0 { "table" }
-        else if first != none and first.pos == e.pos { "start" }
-        else if last != none and last.pos == e.pos { "end" }
+        else if prev != none and prev.kind == "alone" and prev.pos == e.pos { "alone" }
+        else if enc != none and enc.first().pos == e.pos { "start" }
+        else if enc != none and enc.last().pos == e.pos { "end" }
         else { "inside" }
       )
     }
@@ -334,8 +344,9 @@
   out
 }
 
-// Ostateczne wyrównanie bloku: w tabeli zawsze "inside", poza nią at ma pierwszeństwo.
-#let _resolve-at(at, kind) = if kind == "table" { "inside" } else if at != auto { at } else { kind }
+// Ostateczne wyrównanie bloku: w tabeli zawsze "inside", poza nią at ma pierwszeństwo;
+// komentarz samodzielny wyrównuje się jak początek następnego akapitu.
+#let _resolve-at(at, kind) = if kind == "table" { "inside" } else if at != auto { at } else if kind == "alone" { "start" } else { kind }
 
 // Pożądana górna krawędź bloku; anchor-y to góra wiersza ("start", "inside") albo dół wiersza ("end").
 #let _desired-top(at, anchor-y, height) = if at == "end" { anchor-y - height } else { anchor-y }
@@ -401,10 +412,11 @@
     let data = els.at(i).value
     let at = _resolve-at(data.at, kind)
     // Kotwica: wiersz komentarza albo pierwszy/ostatni wiersz jego akapitu (gdy at wymusza start/end)
-    let first = events.slice(0, i).rev().find(x => x.kind == "par-first")
-    let last = events.slice(i + 1).find(x => x.kind == "par-last")
-    let anchor = if at == "start" and first != none and first.pos.page == page-no { first.pos.y - up }
-      else if at == "end" and last != none and last.pos.page == page-no { last.pos.y + down }
+    // (komentarz samodzielny leży już na górnej krawędzi następnego bloku)
+    let enc = _enclosing(events, i)
+    let anchor = if kind == "alone" and at == "start" { e.pos.y }
+      else if at == "start" and enc != none and enc.first().pos.page == page-no { enc.first().pos.y - up }
+      else if at == "end" and enc != none and enc.last().pos.page == page-no { enc.last().pos.y + down }
       else if at == "end" { e.pos.y + down }
       else { e.pos.y - up }
     let blk = _comment-block(data.bodies, data.resolved)
@@ -626,7 +638,15 @@
   // z których _classify rozpoznaje położenie komentarzy. Nie zmieniają składu.
   show: body => if not on { body } else {
     show par: it => {
-      if it.at("label", default: none) == <sgh-par> { return it }
+      // Akapit z etykietą (także już przebudowany <sgh-par>) zostaje bez zmian;
+      // komentarze w nim są traktowane jak komentarze w środku akapitu.
+      if "label" in it.fields() { return it }
+      let children = if it.body.has("children") { it.body.children } else { (it.body,) }
+      // Akapit złożony z samego komentarza (uwaga ogólna między akapitami): bez akapitu,
+      // żeby nie dodawać pustego wiersza; zostają same znaczniki.
+      if children.all(c => (c.func() == h and c.amount == 0pt) or repr(c.func()) == "tag") {
+        return [#metadata("alone")<sgh-mark>#children.filter(c => c.func() != h).join()]
+      }
       let fields = it.fields()
       let inner = fields.remove("body")
       let mark(kind) = [#h(0pt)#metadata(kind)<sgh-mark>#h(0pt)]
@@ -784,9 +804,9 @@
   body
 }
 
-/// Komentarz promotora. Kolejne bloki treści to wypowiedzi na przemian: promotor, autor, promotor… Komentarz jest widoczny na prawym marginesie tylko w wersji roboczej (parametr `advisor-comments` procedury `sgh()`); w wersji ostatecznej nie zostawia śladu. Wywołanie warto „przykleić” do poprzedniego słowa, żeby nie zostawiało podwójnej spacji:
+/// Komentarz promotora. Kolejne bloki treści to wypowiedzi na przemian: promotor, autor, promotor… Komentarz jest widoczny na prawym marginesie tylko w wersji roboczej (parametr `advisor-comments` procedury `sgh()`); w wersji ostatecznej nie zostawia śladu. Komentarz w środku akapitu wpisuje się po spacji, tuż przed słowem, którego dotyczy; wtedy wersja ostateczna jest identyczna z tekstem bez komentarza:
 /// ```typst
-/// Wartość wynosi 1,42 kg/m³.#sgh-comment[Skąd ta wartość?][Dodałem źródło.] Dalszy tekst…
+/// Wartość wynosi 1,42 kg/m³. #sgh-comment[Skąd ta wartość?][Dodałem źródło.]Dalszy tekst…
 ///
 /// #sgh-comment(resolved: true)[Proszę dodać wniosek.][Dodane.]Akapit…
 /// ```
