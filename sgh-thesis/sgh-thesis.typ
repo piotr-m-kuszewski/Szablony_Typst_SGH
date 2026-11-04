@@ -518,9 +518,11 @@
   styl: "harvard-cite-them-right"
   ) = {
   pagebreak()
-  bibliography(
+  // Tytuł zgodny ze standardem SGH (domyślny tytuł Typst to „Piśmiennictwo”)
+  context bibliography(
     plik,
-    style: styl
+    style: styl,
+    title: if text.lang == "en" [Bibliography] else [Bibliografia]
     )
 }
 
