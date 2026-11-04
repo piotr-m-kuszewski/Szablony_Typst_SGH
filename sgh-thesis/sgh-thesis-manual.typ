@@ -45,7 +45,7 @@ Minimalna praca dyplomowa powinna w pierwszej kolejności dołączać plik `sgh-
   year: "2025",
   studies: "mgr",
   program: "Metody",
-  lang: "pl"
+  language: "pl"
 )
 #table-of-contents()
 = Treść
