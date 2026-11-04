@@ -349,6 +349,85 @@
   out
 }
 
+// Blok komentarza: wypowiedzi na przemian promotor/autor; uwzględniony skrócony do jednego wiersza.
+#let _comment-block(bodies, resolved) = {
+  let speaker(i) = {
+    let name = if calc.even(i) { loc-pl-en("Promotor:", "Supervisor:") } else { loc-pl-en("Autor:", "Author:") }
+    if resolved { text(weight: "bold", name) }
+    else { text(weight: "bold", fill: if calc.even(i) { rgb("#b35c00") } else { rgb("#007481") }, name) }
+  }
+  // Akapity komentarza nie dostają znaczników par-first/par-last (patrz sgh())
+  show par: it => [#it<sgh-par>]
+  set text(font: "DejaVu Sans Mono", size: 8pt, fill: if resolved { rgb("#888888") } else { rgb("#333333") }, hyphenate: false)
+  set par(justify: false, first-line-indent: 0pt, leading: 0.5em)
+  block(
+    width: 75mm,
+    inset: 1.8mm,
+    radius: 2.5mm,
+    fill: if resolved { rgb("#f4f1e2") } else { rgb("#fff6c2") },
+    stroke: 0.75pt + if resolved { rgb("#d9b380") } else { rgb("#f08c00") },
+    if resolved {
+      // Szeroki blok bez łamania wierszy, przycięty do szerokości komentarza
+      box(width: 100%, clip: true, block(width: 500mm)[✓ #strike[#speaker(0) #bodies.first()]])
+    } else {
+      bodies
+        .enumerate()
+        .map(((i, b)) => [#speaker(i) #b])
+        .join(block(above: 1.2mm, below: 1.2mm, line(length: 100%, stroke: 0.5pt + rgb("#f0b060"))))
+    }
+  )
+}
+
+// Komentarze bieżącej strony rysowane na pierwszym planie strony roboczej: bloki w kolumnie
+// 193–268 mm, a dla komentarzy w wierszu także marker i łącznik biegnący pod wierszem.
+#let _render-comments() = {
+  let page-no = here().page()
+  let els = query(selector(<sgh-comment>).or(<sgh-mark>))
+  let events = els.map(e => (
+    kind: if e.label == <sgh-comment> { "c" } else { e.value },
+    pos: e.location().position(),
+  ))
+  let kinds = _classify(events).rev()
+  // Wysokość wiersza tekstu głównego względem linii bazowej
+  let body-text(edges, s) = text(font: "New Computer Modern", size: 12pt, ..edges, s)
+  let up = measure(body-text((top-edge: "cap-height", bottom-edge: "baseline"), "H")).height
+  let down = measure(body-text((top-edge: "baseline", bottom-edge: "descender"), "p")).height
+
+  let items = ()
+  for (i, e) in events.enumerate() {
+    if e.kind != "c" { continue }
+    let kind = kinds.pop()
+    if e.pos.page != page-no { continue }
+    let data = els.at(i).value
+    let at = _resolve-at(data.at, kind)
+    // Kotwica: wiersz komentarza albo pierwszy/ostatni wiersz jego akapitu (gdy at wymusza start/end)
+    let first = events.slice(0, i).rev().find(x => x.kind == "par-first")
+    let last = events.slice(i + 1).find(x => x.kind == "par-last")
+    let anchor = if at == "start" and first != none and first.pos.page == page-no { first.pos.y - up }
+      else if at == "end" and last != none and last.pos.page == page-no { last.pos.y + down }
+      else if at == "end" { e.pos.y + down }
+      else { e.pos.y - up }
+    let blk = _comment-block(data.bodies, data.resolved)
+    let height = measure(blk).height
+    items.push((at: at, pos: e.pos, blk: blk, height: height, top: _desired-top(at, anchor, height), resolved: data.resolved))
+  }
+  items = items.sorted(key: it => it.top)
+  let tops = _stack(items.map(it => it.top), items.map(it => it.height), 2mm)
+
+  for (it, y0) in items.zip(tops) {
+    let color = if it.resolved { rgb("#d9b380") } else { rgb("#f08c00") }
+    if it.at == "inside" {
+      let (x, y) = (it.pos.x, it.pos.y)
+      let under = y + down + 1pt
+      place(top + left, line(start: (x, y - up), end: (x, y + down), stroke: 0.6pt + color))
+      place(top + left, dx: x - 0.6mm, dy: y - up - 0.6mm, circle(radius: 0.6mm, fill: color, stroke: none))
+      place(top + left, line(start: (x, under), end: (189mm, under), stroke: 0.8pt + color))
+      place(top + left, line(start: (189mm, under), end: (193mm, y0 + 3mm), stroke: 0.8pt + color))
+    }
+    place(top + left, dx: 193mm, dy: y0, it.blk)
+  }
+}
+
 /// Główna procedura szablonu. Generuje stronę tytułową i konfiguruje wszystkie parametry tekstu. `sgh()` wymaga użycia komendy `#show` na początku pliku. Przykładowe wywołanie procedury `sgh()`:
 /// ```typst
 /// #show: sgh.with(
@@ -397,7 +476,11 @@
     margin: (top: 25mm, bottom: 25mm, left: 25mm, right: 25mm),
   )
   // Wersja robocza: blok tekstu bez zmian, strona poszerzona w prawo o pas na komentarze
-  set page(width: 280mm, margin: (top: 25mm, bottom: 25mm, left: 25mm, right: 95mm)) if on
+  set page(
+    width: 280mm,
+    margin: (top: 25mm, bottom: 25mm, left: 25mm, right: 95mm),
+    foreground: context _render-comments(),
+  ) if on
   show figure: set place(clearance: 1em)
   show figure: set block(below: 0.75em)
 
