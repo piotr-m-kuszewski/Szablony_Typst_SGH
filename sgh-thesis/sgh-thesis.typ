@@ -310,6 +310,45 @@
 // bo nawet niewidoczny metadata w akapicie zmienia justowanie wiersza o ułamki punktu.
 #let _comments-visible = state("sgh-advisor-comments", false)
 
+// Rodzaj każdego komentarza ("c") ze zdarzeń (kind:, pos:) w kolejności dokumentu:
+// "table" między table-begin i table-end; "start"/"end", gdy komentarz leży dokładnie
+// tam, gdzie znacznik par-first poprzedzający go lub par-last następujący po nim;
+// w pozostałych przypadkach "inside".
+#let _classify(events) = {
+  let out = ()
+  let tables = 0
+  for (i, e) in events.enumerate() {
+    if e.kind == "table-begin" { tables += 1 }
+    else if e.kind == "table-end" { tables -= 1 }
+    else if e.kind == "c" {
+      let first = events.slice(0, i).rev().find(x => x.kind == "par-first")
+      let last = events.slice(i + 1).find(x => x.kind == "par-last")
+      out.push(
+        if tables > 0 { "table" }
+        else if first != none and first.pos == e.pos { "start" }
+        else if last != none and last.pos == e.pos { "end" }
+        else { "inside" }
+      )
+    }
+  }
+  out
+}
+
+// Ostateczne wyrównanie bloku: w tabeli zawsze "inside", poza nią at ma pierwszeństwo.
+#let _resolve-at(at, kind) = if kind == "table" { "inside" } else if at != auto { at } else { kind }
+
+// Pożądana górna krawędź bloku; anchor-y to góra wiersza ("start", "inside") albo dół wiersza ("end").
+#let _desired-top(at, anchor-y, height) = if at == "end" { anchor-y - height } else { anchor-y }
+
+// Układanie bloków posortowanych wg tops: blok zachodzący na poprzedni przesuwa się w dół.
+#let _stack(tops, heights, gap) = {
+  let out = ()
+  for (i, t) in tops.enumerate() {
+    out.push(if i == 0 { t } else { calc.max(t, out.at(i - 1) + heights.at(i - 1) + gap) })
+  }
+  out
+}
+
 /// Główna procedura szablonu. Generuje stronę tytułową i konfiguruje wszystkie parametry tekstu. `sgh()` wymaga użycia komendy `#show` na początku pliku. Przykładowe wywołanie procedury `sgh()`:
 /// ```typst
 /// #show: sgh.with(
@@ -500,6 +539,20 @@
   }
 }
 
+  // Wersja robocza: znaczniki pierwszego i ostatniego miejsca akapitu oraz granic tabel,
+  // z których _classify rozpoznaje położenie komentarzy. Nie zmieniają składu.
+  show: body => if not on { body } else {
+    show par: it => {
+      if it.at("label", default: none) == <sgh-par> { return it }
+      let fields = it.fields()
+      let inner = fields.remove("body")
+      let mark(kind) = [#h(0pt)#metadata(kind)<sgh-mark>#h(0pt)]
+      [#par(..fields, [#mark("par-first")#inner#mark("par-last")])<sgh-par>]
+    }
+    show table: it => [#metadata("table-begin")<sgh-mark>#it#metadata("table-end")<sgh-mark>]
+    body
+  }
+
   body
 }
 
@@ -672,5 +725,6 @@
   if at not in (auto, "start", "inside", "end") {
     panic("sgh-comment: at musi być auto, \"start\", \"inside\" albo \"end\", otrzymano " + repr(at))
   }
-  context if _comments-visible.get() [#metadata((resolved: resolved, at: at, bodies: bodies.pos()))<sgh-comment>]
+  // h(0pt) po obu stronach: znacznik zostaje w wierszu także na początku i na końcu akapitu
+  context if _comments-visible.get() [#h(0pt)#metadata((resolved: resolved, at: at, bodies: bodies.pos()))<sgh-comment>#h(0pt)]
 }
