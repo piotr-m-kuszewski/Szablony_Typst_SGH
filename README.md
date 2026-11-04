@@ -8,6 +8,24 @@ Szablon pracy dyplomowej znajduje się w katalogu `sgh-thesis` w tym repozytoriu
 
 Szablon spełnia wszystkie wymagania dla prac dyplomowych w SGH, więc prace złożone z wykorzystaniem tego szablonu powinny spełniać wymogi redakcyjne dla prac dyplomowych bez dodatkowych problemów.
 
+## Komentarze promotora
+
+Od wersji 0.2.0 promotor może wpisywać komentarze bezpośrednio w pliku źródłowym pracy poleceniem `#sgh-comment[…]`, a autor może na nie odpowiadać. Komentarze zostają w pliku na stałe. Parametr `advisor-comments` procedury `sgh` decyduje, czy widać je w PDF: `true` daje wersję roboczą z komentarzami na poszerzonym prawym marginesie, a domyślne `false` daje wersję ostateczną, w której komentarze nie zostawiają żadnego śladu.
+
+Wersję można też wybrać przy kompilacji, bez zmiany pliku. Wartość podana w wierszu poleceń ma pierwszeństwo przed parametrem:
+
+```bash
+typst compile --input advisor-comments=true praca.typ   # wersja robocza z komentarzami
+typst compile --input advisor-comments=false praca.typ  # wersja ostateczna
+```
+
+W katalogu `sgh-thesis` są dwa przykłady:
+
+- `sgh-thesis-example-pl.typ` ma `advisor-comments: true`, więc jego PDF pokazuje komentarze promotora na marginesie;
+- `sgh-thesis-example-final-pl.typ` ma komentarze wpisane w tekst, ale wyłączone (`advisor-comments: false`), więc jego PDF jest wersją ostateczną bez komentarzy. Komentarze pokazuje polecenie `typst compile --input advisor-comments=true sgh-thesis-example-final-pl.typ`.
+
+Szczegóły, w tym miejsce wpisywania komentarza w akapicie i ograniczenia, opisuje instrukcja `sgh-thesis-manual.pdf`.
+
 # Szablon prezentacji
 
 Szablon prezentacji znajduje się w katalogu `sgh-presentation` w tym repozytorium. Podobnie jak szablon pracy dyplomowej szablon prezentacji jest dwujęzyczny. Standardowym fontem w prezentacjach SGH jest Open Sans. Ten font jest mało czytelny i nie zawiera wielu opcji ustalenia wagi fontu w dokumencie. Z tego względu prezentacje w formacie Typst używają fontu Lato. Font Lato jest bezpłatny i dostępny pod adresem <https://www.latofonts.com>. Font Lato został opracowany w Polsce przez Łukasza Dziedzica. Instalacja fontu w systemie jest niezbędna, jeśli chcemy niego korzystać w Typst zainstalowanym na komputerze. W przypadku edytowania dokumentów na platformie Typst.app nie ma takiej potrzeby, bo font jest już tam zainstalowany.

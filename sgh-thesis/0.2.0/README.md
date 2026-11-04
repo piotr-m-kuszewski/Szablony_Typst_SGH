@@ -122,6 +122,11 @@ paragraph, put the comment after the space, right before the word it refers to.
 comment to one struck-through line. Comments also work in table cells; they are not
 supported in headings, captions, footnotes or repeated table headers.
 
+The repository has two example theses: `sgh-thesis-example-pl.typ` is compiled as a
+draft and shows the comments, while `sgh-thesis-example-final-pl.typ` contains
+comments but keeps them hidden (`advisor-comments: false`); compile it with
+`--input advisor-comments=true` to see them.
+
 ## Available procedures
 
 - `sgh(...)` — the main template procedure; generates the title page and configures
