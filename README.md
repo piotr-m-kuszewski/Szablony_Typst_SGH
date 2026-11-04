@@ -16,7 +16,7 @@ Szablon prezentacji znajduje się w katalogu `sgh-presentation` w tym repozytori
 
 Najprostszą ścieżką byłoby używanie tych szablonów poprzez centralne repozytorium Typst Universe, ale niestety bariery administracyjne i brak działania niektórych osób sprawia, że na tym etapie instalacja szablonów musi być wykonana przez użytkownika ręcznie.
 
-Gdy szablony trafią do Typst Universe, wystarczy zaimportować je w dokumencie poleceniem `#import "@preview/sgh-thesis:0.1.2": *` lub `#import "@preview/sgh-presentation:0.1.2": *`, tak jak w instrukcjach i przykładach z tego repozytorium. Typst pobierze wtedy pakiet sam. Do tego czasu trzeba skopiować szablon na własny komputer jednym z dwóch sposobów opisanych niżej i odpowiednio zmienić wiersz `#import`.
+Gdy szablony trafią do Typst Universe, wystarczy zaimportować je w dokumencie poleceniem `#import "@preview/sgh-thesis:0.2.0": *` lub `#import "@preview/sgh-presentation:0.1.2": *`, tak jak w instrukcji i przykładzie szablonu prezentacji. (Instrukcja i przykład szablonu pracy importują plik `sgh-thesis.typ` z tego samego katalogu.) Typst pobierze wtedy pakiet sam. Do tego czasu trzeba skopiować szablon na własny komputer jednym z dwóch sposobów opisanych niżej i odpowiednio zmienić wiersz `#import`.
 
 ## Sposób 1: plik szablonu w folderze projektu
 
@@ -37,10 +37,10 @@ Ten sposób działa także w Typst.app: plik szablonu trzeba wgrać do projektu 
 
 ## Sposób 2: pakiet lokalny na komputerze
 
-Typst pozwala zainstalować pakiet w katalogu użytkownika i korzystać z niego we wszystkich projektach na danym komputerze. Pakiety zainstalowane w ten sposób należą do przestrzeni nazw `@local`. Należy skopiować cały folder z numerem wersji (`sgh-thesis/0.1.2` lub `sgh-presentation/0.1.2`) tak, aby plik `typst.toml` znalazł się w katalogu:
+Typst pozwala zainstalować pakiet w katalogu użytkownika i korzystać z niego we wszystkich projektach na danym komputerze. Pakiety zainstalowane w ten sposób należą do przestrzeni nazw `@local`. Należy skopiować cały folder z numerem wersji (`sgh-thesis/0.2.0` lub `sgh-presentation/0.1.2`) tak, aby plik `typst.toml` znalazł się w katalogu:
 
-- macOS: `~/Library/Application Support/typst/packages/local/sgh-thesis/0.1.2/`
-- Windows: `%APPDATA%\typst\packages\local\sgh-thesis\0.1.2\`
+- macOS: `~/Library/Application Support/typst/packages/local/sgh-thesis/0.2.0/`
+- Windows: `%APPDATA%\typst\packages\local\sgh-thesis\0.2.0\`
 
 i analogicznie dla `sgh-presentation`. Brakujące katalogi trzeba utworzyć.
 
@@ -48,7 +48,7 @@ Na macOS wystarczy wykonać w Terminalu, w katalogu z pobranym repozytorium:
 
 ```bash
 mkdir -p ~/Library/Application\ Support/typst/packages/local/sgh-thesis ~/Library/Application\ Support/typst/packages/local/sgh-presentation
-cp -R sgh-thesis/0.1.2 ~/Library/Application\ Support/typst/packages/local/sgh-thesis/
+cp -R sgh-thesis/0.2.0 ~/Library/Application\ Support/typst/packages/local/sgh-thesis/
 cp -R sgh-presentation/0.1.2 ~/Library/Application\ Support/typst/packages/local/sgh-presentation/
 ```
 
@@ -58,7 +58,7 @@ Na Windows wystarczy wykonać w PowerShell, w katalogu z pobranym repozytorium:
 
 ```powershell
 New-Item -ItemType Directory -Force "$env:APPDATA\typst\packages\local\sgh-thesis", "$env:APPDATA\typst\packages\local\sgh-presentation"
-Copy-Item -Recurse -Force sgh-thesis\0.1.2 "$env:APPDATA\typst\packages\local\sgh-thesis\"
+Copy-Item -Recurse -Force sgh-thesis\0.2.0 "$env:APPDATA\typst\packages\local\sgh-thesis\"
 Copy-Item -Recurse -Force sgh-presentation\0.1.2 "$env:APPDATA\typst\packages\local\sgh-presentation\"
 ```
 
@@ -67,7 +67,7 @@ Foldery można też skopiować ręcznie: wpisanie `%APPDATA%` w pasku adresu Eks
 Po instalacji szablony importuje się z przestrzeni `@local`:
 
 ```typst
-#import "@local/sgh-thesis:0.1.2": *
+#import "@local/sgh-thesis:0.2.0": *
 ```
 
 lub, w przypadku prezentacji:

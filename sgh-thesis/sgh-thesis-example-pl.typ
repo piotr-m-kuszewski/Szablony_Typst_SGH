@@ -1,5 +1,5 @@
 // Import szablonu pracy dyplomowej zgodnej z wymaganiami SGH
-#import "@preview/sgh-thesis:0.1.2": *
+#import "sgh-thesis.typ": *
 
 #import "@preview/theorion:0.6.0": *
 #import cosmos.simple: *
@@ -13,9 +13,24 @@
 #show: show-hipoteza
 #set par(justify: true)
 
+#show: sgh.with(
+  author: "Ijon Tichy",
+  student-id: "112358",
+  title: [Taksonomia i morfologia bytów\ nieistniejących zamieszkujących\ mgławice ciemne],
+  advisor: "Prof. Astrala Sternu Tarantogi",
+  advisor-department: "Katedra Astrognozji i Porównawczego Badania Nicości",
+  year: "2025",
+  studies: "mgr",
+  program: "Kosmologia Paradoksalna",
+  language: "pl",
+  advisor-comments: true,
+)
+
 // Wstawka z opisem przykładowej pracy dyplomowej
 #note-block(title: "Ważna uwaga!")[
   Ten dokument jest przykładem pracy dyplomowej sformatowanej za pomocą szablonu Typst (https://typst.app) zgodnego z wymaganiami redakcyjnymi Szkoły Głównej Handlowej. W treści wykorzystane są wszystkie dodatkowe elementy formatowania wprowadzane przez ten szablon. Treść tego dokumentu nie jest pracą dyplomową złożoną przez Ijona Tichego. Zainteresowanych prawdziwymi dokonaniami tego znanego badacza zachęcam do lektury _Dzienników gwiazdowych_.
+
+  Dokument jest złożony w wersji roboczej (`advisor-comments: true`): strony są poszerzone, a na prawym marginesie widać komentarze promotora. Wersję ostateczną, bez komentarzy i na stronach A4, daje `advisor-comments: false` albo polecenie `typst compile --input advisor-comments=false sgh-thesis-example-pl.typ` bez zmiany pliku.
 ]
 
 #emph-block[
@@ -28,23 +43,14 @@
   - `list-of-tables` do przygotowania spisu tabel,
   - `list-of-figures` do przygotowania spisu rysunków,
   - `list-of-sources` do przygotowania bibliografii w stylu harwardzkim na podstawie wskazanego pliku danych bibliograficznych,
-  - `sgh-summary` do umieszczenia streszczenia pracy.
+  - `sgh-summary` do umieszczenia streszczenia pracy,
+  - `sgh-comment` do wpisywania komentarzy promotora i odpowiedzi autora.
 
   Na początku zdefiniowana jest, przy użyciu pakietu `theorion`, dodatkowa komenda pozwalająca dodawać do tekstu hipotezy formatowane tak jak inne elementy tekstu naukowego, takie jak twierdzenia, lematy, dowody, etc.
 ]
 // Koniec wstawki z opisem przykładowej pracy dyplomowej
 
-#show: sgh.with(
-  author: "Ijon Tichy",
-  student-id: "112358",
-  title: [Taksonomia i morfologia bytów\ nieistniejących zamieszkujących\ mgławice ciemne],
-  advisor: "Prof. Astrala Sternu Tarantogi",
-  advisor-department: "Katedra Astrognozji i Porównawczego Badania Nicości",
-  year: "2025",
-  studies: "mgr",
-  program: "Kosmologia Paradoksalna",
-  language: "pl"
-)
+#pagebreak()
 
 #show: sgh-stripped-tables
 
@@ -52,23 +58,23 @@
 
 = Wstęp do ontologii negatywnej
 
-Problem bytów nieistniejących od dawna spędzał sen z powiek kosmologom i filozofom, którzy niepotrzebnie zakładali, że aby coś badać, musi to najpierw posiadać cechę bycia @tarantoga2121. Tymczasem mgławice ciemne, będące obszarami o skrajnie niskim natężeniu sensu, stanowią idealne środowisko dla fauny i flory, która z zasady nie występuje @tarantoga2123.
+#sgh-comment[Proszę zacząć od definicji bytu nieistniejącego. Czytelnik nie wie jeszcze, o czym mowa.][Definicję podaję w podrozdziale 1.1, dodałem odsyłacz.]Problem bytów nieistniejących od dawna spędzał sen z powiek kosmologom i filozofom, którzy niepotrzebnie zakładali, że aby coś badać, musi to najpierw posiadać cechę bycia @tarantoga2121. Tymczasem mgławice ciemne, będące obszarami o skrajnie niskim natężeniu sensu, stanowią idealne środowisko dla fauny i flory, która z zasady nie występuje @tarantoga2123.
 
 W trakcie jednej z moich licznych podróży przez mgławice ciemne, natknąłem się na osobliwy przypadek bytu nieistniejącego, który nie tylko nie istniał, ale wręcz aktywnie zaprzeczał własnemu nieistnieniu. Zjawisko to, nazwane przeze mnie *anty-niebytem*, objawiało się nagłym wzrostem poczucia dezorientacji u obserwatora oraz nieodpartą chęcią zapisania czegoś, czego nie sposób było potem odczytać.
 
-Podczas eksperymentu terenowego, wyposażony w spektrometr absencji oraz kwantowy licznik braku, próbowałem zarejestrować obecność niebytu w sektorze Alfa-Null. Wyniki były jednoznaczne: urządzenia wskazywały wartości ujemne, a notatnik samoczynnie wymazywał zapisane obserwacje. Wnioskując z tego, że niebyt nie tylko nie istnieje, ale i nie pozwala na istnienie dowodów swego nieistnienia, postanowiłem zastosować metodę pośrednią — obserwację przez zamknięte oczy.
+Podczas eksperymentu terenowego, wyposażony w spektrometr absencji oraz kwantowy licznik braku, próbowałem zarejestrować obecność niebytu w sektorze Alfa-Null. Wyniki były jednoznaczne: #sgh-comment[Jednoznaczne dla kogo? Proszę podać wartości z pomiarów.]urządzenia wskazywały wartości ujemne, a notatnik samoczynnie wymazywał zapisane obserwacje. Wnioskując z tego, że niebyt nie tylko nie istnieje, ale i nie pozwala na istnienie dowodów swego nieistnienia, postanowiłem zastosować metodę pośrednią — obserwację przez zamknięte oczy.
 
 Wtedy właśnie, wśród ciszy i pustki, usłyszałem głos, który nie był głosem, lecz raczej brakiem echa po myśli, która nie została pomyślana. Głos ten, należący zapewne do jednego z wybitniejszych przedstawicieli niebytu, wyraził stanowczy sprzeciw wobec wszelkich prób klasyfikacji. "Nie liczcie nas, bo znikniecie!" — ostrzegł, po czym zniknął, pozostawiając po sobie ślad w postaci braku śladu.
 
-Tak oto, w duchu najlepszych tradycji kosmologii paradoksalnej, przekonałem się, że badanie niebytu wymaga nie tylko odwagi, ale i umiejętności zapominania tego, czego się dowiedziało. W przeciwnym razie grozi nam bowiem nie tylko utrata sensu, ale i pojawienie się niepożądanego bytu — na przykład recenzenta.
+Tak oto, w duchu najlepszych tradycji kosmologii paradoksalnej, przekonałem się, że badanie niebytu wymaga nie tylko odwagi, ale i umiejętności zapominania tego, czego się dowiedziało. W przeciwnym razie grozi nam bowiem nie tylko utrata sensu, ale i pojawienie się niepożądanego bytu — na przykład recenzenta.#sgh-comment[Ostatnie zdanie proszę usunąć. Recenzent może je odebrać osobiście.]
 
 == Morfologia niebytów
 
-Morfologia tych obiektów opiera się na tzw. *paradoksie braku*. Byt nieistniejący nie posiada masy, ale posiada jej brak, co w warunkach próżni generuje ujemny nacisk ontologiczny. Taksonomia tych istot jest utrudniona, gdyż próba ich policzenia często kończy się zniknięciem samego liczącego lub, co gorsza, pojawieniem się obiektu, co z punktu widzenia niniejszej pracy jest błędem metodologicznym.
+Morfologia tych obiektów opiera się na tzw. *paradoksie braku*. Byt nieistniejący #sgh-comment(resolved: true)[Literówka w nazwie paradoksu w poprzednim zdaniu.][Poprawione.]nie posiada masy, ale posiada jej brak, co w warunkach próżni generuje ujemny nacisk ontologiczny. Taksonomia tych istot jest utrudniona, gdyż próba ich policzenia często kończy się zniknięciem samego liczącego lub, co gorsza, pojawieniem się obiektu, co z punktu widzenia niniejszej pracy jest błędem metodologicznym.
 
 W trakcie ekspedycji do mgławicy Ciemnej Zeta, wyposażony w najnowszy model detektora nieistnienia (z funkcją automatycznego zapominania wyników), dokonałem kilku obserwacji, które — choć nie zostały zapisane — odcisnęły się wyraźnym brakiem w mojej pamięci. Najbardziej uderzającą cechą niebytów jest ich nieuchwytność: im bardziej próbowałem je opisać, tym mniej ich było, aż w końcu zniknął nie tylko obiekt badań, ale i sam opis.
 
-Przykładowo, podczas eksperymentu z tzw. *niebytem rozproszonym*, po otwarciu pojemnika badawczego stwierdziłem, że nie zawiera on niczego, czego bym się nie spodziewał. Jednak po zamknięciu i ponownym otwarciu, okazało się, że nie zawiera nawet tego. Zjawisko to nazwałem *paradoksem podwójnej pustki*.
+Przykładowo, podczas eksperymentu z tzw. *niebytem rozproszonym*, #sgh-comment[Termin „niebyt rozproszony” wymaga definicji.]po otwarciu pojemnika badawczego stwierdziłem, #sgh-comment[Czy narracja w pierwszej osobie jest tu uzasadniona?][To relacja z własnego eksperymentu, dlatego zostawiłem pierwszą osobę.][Zgoda.]że nie zawiera on niczego, czego bym się nie spodziewał. Jednak po zamknięciu i ponownym otwarciu, okazało się, że nie zawiera nawet tego. Zjawisko to nazwałem *paradoksem podwójnej pustki*.
 
 Warto również wspomnieć o *niebytach interferencyjnych*, które pojawiają się wyłącznie wtedy, gdy nikt na nie nie patrzy, a znikają natychmiast po odwróceniu wzroku. Próba ich sfotografowania kończy się uzyskaniem zdjęcia przedstawiającego wyłącznie fotografa, który nie wie, po co trzyma aparat.
 
@@ -98,7 +104,7 @@ W Tabeli @tab:niebyty przedstawiono klasyfikację najczęściej "nie-spotykanych
     align: (left, left, left, left),
     table.header([Typ bytu], [Gęstość bytu\ \[kg/m³\]], [Charakterystyka\ wizualna], [Uwagi]),
     [*Nicość\ rzadka*], [$0,00$], [Przezroczysta, ale smutna], [Często mylona z przeciągiem.],
-    [*Omam\ grawitacyjny*], [$1,42$], [Kształt przypominający dług], [Powoduje znikanie portfeli.],
+    [*Omam\ grawitacyjny*], [#sgh-comment[Skąd ta wartość? Proszę podać źródło pomiaru.]$1,42$], [Kształt przypominający dług], [Powoduje znikanie portfeli.],
     [*Sepulk\ metizyczny*], [brak danych], [\[ZAKRYTO\]], [Zobacz: @pstryk2384]
   )
 )<tab:niebyty>

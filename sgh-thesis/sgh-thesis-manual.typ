@@ -35,7 +35,7 @@ Szablon pracy dyplomowej SGH umożliwia proste sformatowanie pracy dyplomowej z 
 
 Minimalna praca dyplomowa powinna w pierwszej kolejności dołączać plik `sgh-thesis.typ`, który powinien być w tym samym katalogu co plik dokumentu.
 ```typst
-#import "@preview/sgh-thesis:0.1.2": *
+#import "sgh-thesis.typ": *
 #show: sgh.with(
   author: "Imię i nazwisko autora",
   student-id: "112358",
@@ -160,7 +160,7 @@ Standardowa konfiguracja szablonu pracy dyplomowej wykorzystuje harwardzki styl 
 
 Spis bibliografii można utworzyć na dwa sposoby.
 
-*Sposób 1 — procedura `list-of-sources`.* Procedura ta dodaje przerwę strony i domyślnie używa stylu harwardzkiego. Wywołanie wbudowanej funkcji `bibliography` znajduje się jednak _wewnątrz_ pakietu, dlatego ścieżka podana jako zwykły napis byłaby szukana w katalogu pakietu, a nie w katalogu Twojego dokumentu. Plik z danymi należy więc wczytać funkcją `read(..., encoding: none)` we własnym dokumencie i przekazać uzyskane bajty:
+*Sposób 1 — procedura `list-of-sources`.* Procedura ta dodaje przerwę strony, domyślnie używa stylu harwardzkiego i nadaje spisowi tytuł „Bibliografia” (w pracy angielskiej „Bibliography”), zgodny ze standardem SGH. Wywołanie wbudowanej funkcji `bibliography` znajduje się jednak _wewnątrz_ pakietu, dlatego ścieżka podana jako zwykły napis byłaby szukana w katalogu pakietu, a nie w katalogu Twojego dokumentu. Plik z danymi należy więc wczytać funkcją `read(..., encoding: none)` we własnym dokumencie i przekazać uzyskane bajty:
 
 ```typst
 #list-of-sources(read("źródła.bib", encoding: none))
@@ -192,6 +192,50 @@ W języku polskim wyróżniamy trzy kreski: łącznik (-), półpauzę (–) i p
 - Typst i LaTeX pozwalają wpisać te znaki korzystając z wielokrotności znaku `-`. Dla półpauzy stosujemy `--` a dla pauzy `---`.
 - *macOS:* Półpauza: `Option + -`, pauza: `Shift + Option + -`.
 - *Windows:* Pauza: `Alt + 0151` (na klawiaturze numerycznej), półpauza: `Alt + 0150`. W niektórych konfiguracjach klawiatury: `Ctrl + Alt + -` (półpauza). Word często sam poprawia wprowadzony łącznik na półpauzę, ale nie działa to przy kopiowaniu tekstu.
+
+= Komentarze promotora
+
+Promotor może wpisywać uwagi bezpośrednio w pliku źródłowym pracy, a autor może na nie odpowiadać. Uwagi zostają w kodzie jako zapis ustaleń i nie trzeba ich usuwać przed oddaniem pracy, bo o ich widoczności decyduje jeden przełącznik.
+
+```typst
+Wyniki były jednoznaczne: #sgh-comment[Jednoznaczne dla kogo?]urządzenia wskazywały wartości ujemne.
+
+#sgh-comment[Proszę zacząć od definicji.][Dodałem ją w podrozdziale 1.1.][Zgoda.]Problem bytów…
+```
+
+Kolejne bloki w nawiasach kwadratowych to wypowiedzi na przemian: promotor, autor, promotor… Na marginesie pierwsza wypowiedź ma etykietę „Promotor:”, druga „Autor:” i tak dalej (w pracy angielskiej „Supervisor:” i „Author:”). Wygląd komentarzy pokazuje plik `sgh-thesis-example-pl.pdf`.
+
+== Wersja robocza i wersja ostateczna
+
+Parametr `advisor-comments` procedury `sgh` przełącza wersje. Domyślna wartość `false` daje wersję ostateczną: komentarze nie zostawiają w dokumencie żadnego śladu. Wartość `true` daje wersję roboczą: strona jest poszerzona do 280 mm, a komentarze pojawiają się na prawym marginesie. Blok tekstu ma w obu wersjach te same wymiary, więc podział wierszy i stron jest taki sam.
+
+Wersję można wybrać bez zmiany pliku, poleceniem `typst compile --input advisor-comments=true praca.typ` (albo `=false`). Wartość podana w wierszu poleceń ma pierwszeństwo przed parametrem. W Typst.app zmienia się parametr.
+
+== Gdzie wpisać komentarz
+
+Położenie bloku na marginesie zależy od miejsca wywołania:
+
+- przed pierwszym słowem akapitu: górna krawędź bloku zrównuje się z górą akapitu;
+- zaraz po ostatnim słowie akapitu: dolna krawędź bloku zrównuje się z dołem akapitu;
+- w środku akapitu: blok staje na wysokości wiersza, a marker w tekście łączy się z nim linią biegnącą pod wierszem.
+
+Komentarz w środku akapitu wpisuje się po spacji, tuż przed słowem, którego dotyczy: `słowo. #sgh-comment[…]dalej`. Taki zapis gwarantuje, że wersja ostateczna jest identyczna z tekstem bez komentarza. Komentarz przyklejony do poprzedniego słowa może minimalnie zmienić odstępy w wierszu, który kończy się tuż przed nim.
+
+Parametr `at` wymusza wyrównanie: `"start"` (do góry akapitu), `"inside"` (do wiersza z markerem) albo `"end"` (do dołu akapitu). Bloki, które nachodziłyby na siebie, przesuwają się w dół. Jeśli nie mieszczą się na stronie, ostatnie wychodzą poza jej dół.
+
+W elementach list komentarz zachowuje się jak komentarz w środku akapitu, także na początku i na końcu elementu; inne wyrównanie ustawia się parametrem `at`. W komórkach tabel komentarz zawsze zachowuje się jak komentarz w środku akapitu, a `at` jest pomijane. Dotyczy to także tabel pływających i dzielonych na kilka stron.
+
+== Komentarz uwzględniony
+
+Parametr `resolved: true` oznacza uwagę jako uwzględnioną. Blok skraca się do jednego wiersza ze znakiem ✓ i przekreślonym początkiem pierwszej wypowiedzi promotora, w wyblakłych kolorach. Odpowiedzi autora nie są pokazywane, ale zostają w kodzie.
+
+```typst
+Byt nieistniejący #sgh-comment(resolved: true)[Literówka.][Poprawione.]nie posiada masy.
+```
+
+== Ograniczenia
+
+Komentarze nie działają w nagłówkach, podpisach rysunków i tabel ani w przypisach. Uwagę do nagłówka lub podpisu wpisuje się na początku pierwszego akapitu pod nim. Komentarz w nagłówku tabeli (`table.header`) powtarzanym na kolejnych stronach pojawia się przy ostatnim powtórzeniu nagłówka, dlatego uwagę do nagłówka tabeli lepiej wpisać w pierwszym wierszu danych.
 
 = Opis procedur zawartych w szablonie
 
