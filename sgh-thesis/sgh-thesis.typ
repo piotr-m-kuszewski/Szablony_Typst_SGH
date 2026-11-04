@@ -357,7 +357,7 @@
     #if studies == "mgr" [
       #text(loc-pl-en("Studium magisterskie","Master's study"))
     ] else if studies == "lic" [
-      #text(loc-pl-en("Studium licencjackie","Bacherlor's study")) 
+      #text(loc-pl-en("Studium licencjackie","Bachelor's study")) 
     ] else [ 
       #text(loc-pl-en("Niewłaściwa nazwa studium!","Wrong studies name!"), fill: red)
     ]
@@ -400,7 +400,7 @@
     #if studies == "mgr" [
       #text(loc-pl-en([Praca magisterska\ ],[Master's thesis\ ]))
     ] else if studies == "lic" [
-      #text(loc-pl-en([Praca licencjacka\ ],[Bacherlor's thesis\ ]))
+      #text(loc-pl-en([Praca licencjacka\ ],[Bachelor's thesis\ ]))
     ] else [
       #text(loc-pl-en("Niewłaściwa nazwa studium!","Wrong name!"), fill: red)
     ]
@@ -413,7 +413,7 @@
     #if advisor-department != "" [
       #text([#advisor-department\ ])
     ] else [
-      #text(loc-pl-en([Wskaż jednostkę naukową promotora!\ ],[Advisor's departement name missing!\ ]), fill: red)
+      #text(loc-pl-en([Wskaż jednostkę naukową promotora!\ ],[Advisor's department name missing!\ ]), fill: red)
     ]
   ]
    v(1fr)
@@ -431,7 +431,7 @@
 
   show heading.where(level: 1): it => {    
     if it.outlined and it.numbering != none {
-      pagebreak()
+      pagebreak(weak: true)
       set text(size: 22pt, weight: "bold")
       loc-pl-en("Rozdział ","Chapter ")
       counter(heading).display()
