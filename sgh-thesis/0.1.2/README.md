@@ -14,6 +14,29 @@ template are available in the project repository:
 
 ![Title page of the example thesis produced with the template](thumbnail.png)
 
+## Installation
+
+The package has not been published on Typst Universe yet. Once it is, the
+`#import "@preview/sgh-thesis:0.1.2": *` line shown below will download it
+automatically. Until then, install it manually in one of two ways.
+
+**Copy the template file into your project.** Copy `sgh-thesis/sgh-thesis.typ`
+from the repository into the folder that holds your document and import it by file
+name: `#import "sgh-thesis.typ": *`. This also works on the Typst web app, where
+you upload the file to the project.
+
+**Install it as a local package.** Copy the whole `sgh-thesis/0.1.2` folder from
+the repository so that its `typst.toml` ends up in
+
+- macOS: `~/Library/Application Support/typst/packages/local/sgh-thesis/0.1.2/`
+- Windows: `%APPDATA%\typst\packages\local\sgh-thesis\0.1.2\`
+
+and import it with `#import "@local/sgh-thesis:0.1.2": *`. The Typst web app does
+not see folders on your computer, but Typst Pro users can publish a project holding
+the package files as a private package, as described in
+[Private Packages](https://typst.app/docs/web-app/private-packages/), and import it
+with the same `@local` line.
+
 ## Usage
 
 ```typst

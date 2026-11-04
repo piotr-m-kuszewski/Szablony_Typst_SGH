@@ -12,6 +12,73 @@ Szablon spełnia wszystkie wymagania dla prac dyplomowych w SGH, więc prace zł
 
 Szablon prezentacji znajduje się w katalogu `sgh-presentation` w tym repozytorium. Podobnie jak szablon pracy dyplomowej szablon prezentacji jest dwujęzyczny. Standardowym fontem w prezentacjach SGH jest Open Sans. Ten font jest mało czytelny i nie zawiera wielu opcji ustalenia wagi fontu w dokumencie. Z tego względu prezentacje w formacie Typst używają fontu Lato. Font Lato jest bezpłatny i dostępny pod adresem <https://www.latofonts.com>. Font Lato został opracowany w Polsce przez Łukasza Dziedzica. Instalacja fontu w systemie jest niezbędna, jeśli chcemy niego korzystać w Typst zainstalowanym na komputerze. W przypadku edytowania dokumentów na platformie Typst.app nie ma takiej potrzeby, bo font jest już tam zainstalowany.
 
+# Jak korzystać z tych szablonów
+
+Najprostszą ścieżką byłoby używanie tych szablonów poprzez centralne repozytorium Typst Universe, ale niestety bariery administracyjne i brak działania niektórych osób sprawia, że na tym etapie instalacja szablonów musi być wykonana przez użytkownika ręcznie.
+
+Gdy szablony trafią do Typst Universe, wystarczy zaimportować je w dokumencie poleceniem `#import "@preview/sgh-thesis:0.1.2": *` lub `#import "@preview/sgh-presentation:0.1.2": *`, tak jak w instrukcjach i przykładach z tego repozytorium. Typst pobierze wtedy pakiet sam. Do tego czasu trzeba skopiować szablon na własny komputer jednym z dwóch sposobów opisanych niżej i odpowiednio zmienić wiersz `#import`.
+
+## Sposób 1: plik szablonu w folderze projektu
+
+Najprościej skopiować plik szablonu do folderu, w którym leży dokument pracy lub prezentacji. Dla pracy dyplomowej jest to plik `sgh-thesis/sgh-thesis.typ`, a dla prezentacji plik `sgh-presentation/sgh-presentation.typ`. Szablon importuje się wtedy przez nazwę pliku:
+
+```typst
+#import "sgh-thesis.typ": *
+```
+
+lub, w przypadku prezentacji:
+
+```typst
+#import "@preview/touying:0.7.4": *
+#import "sgh-presentation.typ": *
+```
+
+Ten sposób działa także w Typst.app: plik szablonu trzeba wgrać do projektu obok dokumentu. Szablon prezentacji korzysta z pakietu Touying, który jest już w Typst Universe, więc Typst pobierze go automatycznie. Wadą tego sposobu jest konieczność kopiowania pliku do każdego nowego projektu.
+
+## Sposób 2: pakiet lokalny na komputerze
+
+Typst pozwala zainstalować pakiet w katalogu użytkownika i korzystać z niego we wszystkich projektach na danym komputerze. Pakiety zainstalowane w ten sposób należą do przestrzeni nazw `@local`. Należy skopiować cały folder z numerem wersji (`sgh-thesis/0.1.2` lub `sgh-presentation/0.1.2`) tak, aby plik `typst.toml` znalazł się w katalogu:
+
+- macOS: `~/Library/Application Support/typst/packages/local/sgh-thesis/0.1.2/`
+- Windows: `%APPDATA%\typst\packages\local\sgh-thesis\0.1.2\`
+
+i analogicznie dla `sgh-presentation`. Brakujące katalogi trzeba utworzyć.
+
+Na macOS wystarczy wykonać w Terminalu, w katalogu z pobranym repozytorium:
+
+```bash
+mkdir -p ~/Library/Application\ Support/typst/packages/local/sgh-thesis ~/Library/Application\ Support/typst/packages/local/sgh-presentation
+cp -R sgh-thesis/0.1.2 ~/Library/Application\ Support/typst/packages/local/sgh-thesis/
+cp -R sgh-presentation/0.1.2 ~/Library/Application\ Support/typst/packages/local/sgh-presentation/
+```
+
+Katalog `Library` jest w Finderze ukryty. Aby skopiować foldery ręcznie, należy w Finderze nacisnąć Cmd+Shift+G i wpisać ścieżkę `~/Library/Application Support`.
+
+Na Windows wystarczy wykonać w PowerShell, w katalogu z pobranym repozytorium:
+
+```powershell
+New-Item -ItemType Directory -Force "$env:APPDATA\typst\packages\local\sgh-thesis", "$env:APPDATA\typst\packages\local\sgh-presentation"
+Copy-Item -Recurse -Force sgh-thesis\0.1.2 "$env:APPDATA\typst\packages\local\sgh-thesis\"
+Copy-Item -Recurse -Force sgh-presentation\0.1.2 "$env:APPDATA\typst\packages\local\sgh-presentation\"
+```
+
+Foldery można też skopiować ręcznie: wpisanie `%APPDATA%` w pasku adresu Eksploratora plików otwiera właściwy katalog.
+
+Po instalacji szablony importuje się z przestrzeni `@local`:
+
+```typst
+#import "@local/sgh-thesis:0.1.2": *
+```
+
+lub, w przypadku prezentacji:
+
+```typst
+#import "@preview/touying:0.7.4": *
+#import "@local/sgh-presentation:0.1.2": *
+```
+
+Typst.app nie widzi folderów zapisanych na komputerze. Użytkownicy planu Typst Pro mogą jednak opublikować projekt z plikami pakietu jako pakiet prywatny, zgodnie z instrukcją [Private Packages](https://typst.app/docs/web-app/private-packages/), i importować go tym samym poleceniem z `@local`. W bezpłatnej wersji Typst.app należy skorzystać ze sposobu 1.
+
 # Typst
 
 Typst to nowoczesny system składu dokumentów, który łączy jakość typograficzną znaną z LaTeX z prostszą składnią i szybszą pracą. Pozwala tworzyć dokumenty naukowe, raporty, prezentacje i prace dyplomowe w sposób powtarzalny, wersjonowalny i wygodny dla pracy zespołowej.
